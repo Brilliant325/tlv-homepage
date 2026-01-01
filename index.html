@@ -1,167 +1,202 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Lost Violets Logistik | Virtuelle Spedition (ETS2)</title>
-<style>
-  :root{
-    --bg:#0b0614;
-    --bg-alt:#120a23;
-    --card:#140b26;
-    --accent:#8b5cf6;
-    --accent-soft:#a78bfa;
-    --text:#e5e7eb;
-    --muted:#b6b3c7;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth}
-  header{position:sticky;top:0;z-index:100;background:#05010a;border-bottom:1px solid #24143d}
-  .nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
-  .nav img{height:64px}
-  .nav a{color:var(--muted);text-decoration:none;margin-left:16px;font-weight:500}
-  .nav a:hover{color:var(--accent)}
-  section{padding:90px 20px}
-  .wrap{max-width:1200px;margin:auto}
-  .hero{text-align:center;background:linear-gradient(180deg,#120a23,#05010a)}
-  .hero h1{font-size:3rem;margin-bottom:10px}
-  .hero span{color:var(--accent)}
-  .hero p{max-width:800px;margin:0 auto 35px;color:var(--muted);font-size:1.1rem}
-  .btn{display:inline-block;padding:14px 34px;border-radius:14px;background:var(--accent);color:white;text-decoration:none;font-weight:bold}
-  .btn:hover{background:var(--accent-soft)}
-  h2{text-align:center;font-size:2.4rem;margin-bottom:40px}
-  .counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;text-align:center}
-  .counter{background:var(--card);padding:30px;border-radius:18px;border:1px solid #26164a;transition:transform 0.3s}
-  .counter:hover{transform:translateY(-5px)}
-  .counter span{display:block;font-size:2.6rem;font-weight:700;color:var(--accent)}
-  .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px}
-  .member{background:var(--card);padding:25px;border-radius:18px;border:1px solid #26164a;text-align:center;transition:transform 0.3s}
-  .member:hover{transform:translateY(-5px)}
-  .member h3{margin:10px 0 5px;color:var(--accent)}
-  .member p{margin:0;color:var(--muted)}
-  .trips{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;padding:0;margin:0;list-style:none}
-  .trips li{background:var(--card);padding:18px;border-radius:14px;border:1px solid #26164a;color:var(--text);font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:transform 0.3s, box-shadow 0.3s}
-  .trips li:hover{transform:translateY(-5px);box-shadow:0 6px 15px rgba(0,0,0,0.5)}
-  .trips li span.driver{color:var(--accent);font-weight:700}
-  .trips li span.distance{float:right;color:var(--accent-soft);font-weight:600}
-  .fade-in{opacity:0;animation:fadeIn 1.5s ease forwards}
-  @keyframes fadeIn{to{opacity:1}}
-</style>
+  <meta charset="UTF-8">
+  <title>The Lost Violets Logistik</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b0614;
+      color: #e5e5e5;
+    }
+
+    /* HERO HEADER */
+    .hero {
+      height: 85vh;
+      background: url("images/truck1.jpg") center center / cover no-repeat;
+      position: relative;
+    }
+
+    .hero .overlay {
+      background: rgba(11, 6, 20, 0.7);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero img {
+      width: 240px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin: 0;
+      color: #b388ff;
+    }
+
+    .hero .slogan {
+      font-size: 1.4em;
+      margin-top: 10px;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* NAVIGATION */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      padding: 15px;
+      background: #140a24;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      color: #b388ff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: #d6bcfa;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #b388ff;
+      margin-bottom: 20px;
+    }
+
+    p {
+      text-align: center;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    /* BUTTONS */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .btn {
+      background: #7c3aed;
+      color: white;
+      padding: 14px 26px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #9f7aea;
+    }
+
+    /* IFRAME */
+    iframe {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      min-height: 650px;
+      background: #140a24;
+      margin-top: 30px;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #140a24;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+  </style>
 </head>
+
 <body>
 
-<header>
-  <div class="nav">
+<!-- HERO HEADER -->
+<header class="hero" id="home">
+  <div class="overlay">
     <img src="https://cdn.truckyapp.com/public/companies/39842/65F0gBO9Hlj7Yucicbw9.png" alt="TLV Logo">
-    <div>
-      <a href="#home">Home</a>
-      <a href="#stats">Statistiken</a>
-      <a href="#team">Team</a>
-      <a href="#join">Beitritt</a>
-      <a href="https://discord.gg/XdcV8nfFGJ" target="_blank" style="color:var(--accent);font-weight:700">Discord</a>
-    </div>
+    <h1>The Lost Violets Logistik</h1>
+    <div class="slogan">Teuer, Langsam und Verloren</div>
   </div>
 </header>
 
-<section id="home" class="hero">
-  <div class="wrap">
-    <h1><span>The Lost Violets</span> Logistik</h1>
-    <p>Realistische virtuelle Spedition für ETS2 – organisiert über TruckyApp.<br>
-    <strong class="fade-in" style="color:var(--accent)">Teuer, Langsam und Verloren</strong></p>
-    <a href="https://hub.truckyapp.com/vtc/the-lost-violets-logistik" target="_blank" class="btn">Jetzt über Trucky bewerben</a>
-    <p style="margin-top:14px;color:var(--muted);font-size:.95rem">Bewerbungen sind ausschließlich über TruckyApp möglich.</p>
+<!-- NAVIGATION -->
+<nav>
+  <a href="#bewerbung">Bewerbung</a>
+  <a href="#team">Team</a>
+  <a href="#fahrten">Fahrten</a>
+  <a href="https://discord.gg/BKQZRThTAb" target="_blank">Discord</a>
+</nav>
+
+<!-- BEWERBUNG -->
+<section id="bewerbung">
+  <h2>📝 Bewerbung</h2>
+  <p>
+    Bewerbungen sind ausschließlich über TruckyApp möglich.
+    Discord-Nachrichten ersetzen keine Bewerbung.
+  </p>
+  <div class="buttons">
+    <a class="btn" href="https://hub.truckyapp.com/vtc/the-lost-violets-logistik" target="_blank">
+      Jetzt über Trucky bewerben
+    </a>
   </div>
 </section>
 
-<section id="stats" class="stats">
-  <div class="wrap">
-    <h2>Unsere Zahlen</h2>
-    <div class="counters">
-      <div class="counter"><span id="km">0</span>Kilometer</div>
-      <div class="counter"><span id="jobs">0</span>Fahrten</div>
-      <div class="counter"><span id="drivers">0</span>Fahrer</div>
-    </div>
-  </div>
-</section>
-
-<section id="trips-section" class="stats">
-  <div class="wrap">
-    <h2>Letzte 20 Fahrten</h2>
-    <ul class="trips" id="trips-list"></ul>
-  </div>
-</section>
-
+<!-- TEAM -->
 <section id="team">
-  <div class="wrap">
-    <h2>Team & Crew</h2>
-    <div class="team" id="team-list"></div>
-  </div>
+  <h2>🧑‍✈️ Unser Team</h2>
+  <p>
+    Alle Fahrer, Rollen und Positionen werden zentral über Trucky verwaltet.
+  </p>
+  <iframe src="https://hub.truckyapp.com/company/39842"></iframe>
 </section>
 
-<section id="join">
-  <div class="wrap" style="text-align:center">
-    <h2>Jetzt Teil von The Lost Violets Logistik werden</h2>
-    <p style="color:var(--muted);max-width:700px;margin:0 auto 35px">Bewirb dich jetzt über TruckyApp.</p>
-    <a href="https://hub.truckyapp.com/vtc/the-lost-violets-logistik" target="_blank" class="btn">Jetzt über Trucky bewerben</a>
-  </div>
+<!-- FAHRTEN -->
+<section id="fahrten">
+  <h2>🚚 Fahrten & Statistiken</h2>
+  <p>
+    Aktuelle Fahrten, Statistiken und Aktivitäten unserer Spedition.
+  </p>
+  <iframe src="https://hub.truckyapp.com/company/39842/jobs"></iframe>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  © 2025 The Lost Violets Logistik · Virtuelle Spedition (ETS2) · Powered by TruckyApp
+  © 2025 The Lost Violets Logistik · ETS2 · TruckyApp  
+  <br>Teuer. Langsam. Verloren. 💜
 </footer>
-
-<script>
-const API_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb21wYW55X2lkIjozOTg0Mn0.oGJ-ZkXTsl1RejJoc2sVuzqnbFWY30SugE-KncU3x1A";
-const API_URL = "https://e.truckyapp.com/api/v1/vtc/the-lost-violets-logistik";
-
-async function loadVTCStats() {
-  try {
-    const res = await fetch(API_URL, { headers: { "Authorization": `Bearer ${API_TOKEN}` } });
-    const data = await res.json();
-
-    animateCounter("km", data.total_distance);
-    animateCounter("jobs", data.total_jobs);
-    animateCounter("drivers", data.drivers);
-
-    loadTrips(data.jobs.slice(0,20));
-    loadTeam(data.members);
-  } catch(e){ console.error("Fehler beim Laden der API:", e); }
-}
-
-function animateCounter(id, target){
-  const el = document.getElementById(id);
-  let count = 0;
-  const step = target / 200;
-  const interval = setInterval(()=>{
-    count += step;
-    if(count >= target){ el.innerText = Math.round(target).toLocaleString("de-DE"); clearInterval(interval); }
-    else{ el.innerText = Math.round(count).toLocaleString("de-DE"); }
-  },15);
-}
-
-function loadTrips(jobs){
-  const list = document.getElementById("trips-list");
-  list.innerHTML = "";
-  jobs.forEach(job => {
-    const li = document.createElement("li");
-    li.innerHTML = `<span class="driver">${job.driver.name}</span><span class="distance">${job.distance.toLocaleString("de-DE")} km</span>`;
-    list.appendChild(li);
-  });
-}
-
-function loadTeam(members){
-  const container = document.getElementById("team-list");
-  container.innerHTML = "";
-  members.forEach(member => {
-    const div = document.createElement("div");
-    div.className = "member";
-    div.innerHTML = `<h3>${member.role}</h3><p>${member.name}</p>`;
-    container.appendChild(div);
-  });
-}
-
-loadVTCStats();
-</script>
 
 </body>
 </html>
+
