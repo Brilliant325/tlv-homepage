@@ -134,10 +134,10 @@ Jetzt über Trucky bewerben
 </footer>
 
 <script>
-const API="https://tlv-trucky-api.florian-ernst-339.workers.dev";
+const API = "https://tlv-trucky-api.florian-ernst-339.workers.dev";
 
 /* Rang-Reihenfolge */
-const rankOrder=[
+const rankOrder = [
   "Inhaber / CEO",
   "Stellvertretender Geschäftsführung",
   "Disposition / Fuhrparkleiter / HR",
@@ -147,71 +147,82 @@ const rankOrder=[
   "Fahrer auf Probe"
 ];
 
-function rankIndex(role){
-  const i=rankOrder.findIndex(r=>role.includes(r));
-  return i===-1?999:i;
+function rankIndex(role) {
+  const i = rankOrder.findIndex(r => role.includes(r));
+  return i === -1 ? 999 : i;
 }
 
-function animate(el,target){
-  let n=0,step=Math.max(target/60,1);
-  const i=setInterval(()=>{
-    n+=step;
-    if(n>=target){
-      el.innerText=target.toLocaleString("de-DE");
+/* Counter Animation */
+function animate(el, target) {
+  let n = 0;
+  const step = Math.max(target / 60, 1);
+  const i = setInterval(() => {
+    n += step;
+    if (n >= target) {
+      el.innerText = target.toLocaleString("de-DE");
       clearInterval(i);
     } else {
-      el.innerText=Math.floor(n).toLocaleString("de-DE");
+      el.innerText = Math.floor(n).toLocaleString("de-DE");
     }
-  },20);
+  }, 20);
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
 
-/* COMPANY */
-fetch(API+"/company").then(r=>r.json()).then(d=>{
-  document.getElementById("company-name").innerText=d.name;
-  document.getElementById("company-name-2").innerText=d.name;
-  document.getElementById("company-slogan").innerText=d.slogan;
-  document.getElementById("company-slogan-2").innerText=d.slogan;
-  document.getElementById("company-tag").innerText=d.tag;
-  document.getElementById("company-language").innerText=d.language;
-  document.getElementById("company-country").innerText=d.country_code;
-  document.getElementById("company-recruitment").innerText=
-    d.recruitment==="open"?"🟢 Bewerbungen offen":"🔴 Geschlossen";
+  /* ===== COMPANY ===== */
+  fetch(API + "/company")
+    .then(r => r.json())
+    .then(d => {
+      document.getElementById("company-name").innerText = d.name;
+      document.getElementById("company-name-2").innerText = d.name;
+      document.getElementById("company-slogan").innerText = d.slogan;
+      document.getElementById("company-slogan-2").innerText = d.slogan;
+      document.getElementById("company-tag").innerText = d.tag;
+      document.getElementById("company-language").innerText = d.language;
+      document.getElementById("company-country").innerText = d.country_code;
+      document.getElementById("company-recruitment").innerText =
+        d.recruitment === "open" ? "🟢 Bewerbungen offen" : "🔴 Geschlossen";
 
-  if(d.cover){
-    document.getElementById("hero").style.backgroundImage=
-      "url(https://cdn.truckyapp.com/"+d.cover+")";
-  }
+      if (d.cover) {
+        document.getElementById("hero").style.backgroundImage =
+          "url(https://cdn.truckyapp.com/" + d.cover + ")";
+      }
 
-  animate(document.getElementById("km"),d.distance);
-  animate(document.getElementById("jobsCount"),d.jobs);
-  animate(document.getElementById("drivers"),d.drivers);
-});
+      /* Nur Fahrer-Counter */
+      animate(document.getElementById("drivers"), d.drivers);
 
-/* TEAM – mit aktuellem Rang */
-fetch(API+"/members").then(r=>r.json()).then(list=>{
-  const team=document.getElementById("teamList");
-  team.innerHTML="";
-
-  list
-    .map(m=>({
-      name:m.user?.name || m.name || "Unbekannt",
-      role:m.role?.name || m.role || "Fahrer"
-    }))
-    .sort((a,b)=>rankIndex(a.role)-rankIndex(b.role))
-    .forEach(m=>{
-      team.innerHTML+=`
-        <div class="card">
-          <b>${m.name}</b><br>
-          <span class="role">${m.role}</span>
-        </div>
-      `;
+      /* Kilometer & Fahrten komplett ausblenden */
+      document.getElementById("km").parentElement.style.display = "none";
+      document.getElementById("jobsCount").parentElement.style.display = "none";
     });
-});
+
+  /* ===== TEAM – ALLE MITGLIEDER MIT ECHTEM NAMEN + RANG ===== */
+  fetch(API + "/members")
+    .then(r => r.json())
+    .then(list => {
+      const team = document.getElementById("teamList");
+      team.innerHTML = "";
+
+      list
+        .map(m => ({
+          name: m.user?.username || "Unbekannt",
+          role: m.role?.name || "Fahrer"
+        }))
+        .sort((a, b) => rankIndex(a.role) - rankIndex(b.role))
+        .forEach(m => {
+          team.innerHTML += `
+            <div class="card">
+              <b>${m.name}</b><br>
+              <span class="role">${m.role}</span>
+            </div>
+          `;
+        });
+    });
 
 });
 </script>
 
+
 </body>
 </html>
+
