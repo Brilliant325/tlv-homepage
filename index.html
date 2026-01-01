@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root {
-  --bg:#0b0614; --bg2:#140a24;
-  --violet:#b388ff; --accent:#7c3aed;
+:root{
+  --bg:#0b0614;--bg2:#140a24;
+  --violet:#b388ff;--accent:#7c3aed;
 }
 *{box-sizing:border-box}
 body{
@@ -47,7 +47,6 @@ h2{text-align:center;color:var(--violet);margin-bottom:30px}
   border-radius:16px;padding:30px;
   box-shadow:0 0 40px rgba(124,58,237,.25)
 }
-.info-box p{margin:8px 0}
 
 .counters{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -58,13 +57,14 @@ h2{text-align:center;color:var(--violet);margin-bottom:30px}
 }
 .counter span{font-size:2.4em;color:var(--accent)}
 
-.team,.jobs{
+.team{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px
 }
 .card{
   background:var(--bg2);padding:20px;border-radius:14px;text-align:center
 }
+.role{font-size:.9em;color:#c4b5fd}
 
 .jobs-list{background:var(--bg2);border-radius:14px;overflow:hidden}
 .jobs-list div{
@@ -107,12 +107,12 @@ footer{
 <section id="info">
 <h2>📊 Live-Speditionsdaten</h2>
 <div class="info-box">
-<p><b>Name:</b> <span id="company-name-2">–</span></p>
-<p><b>Slogan:</b> <span id="company-slogan-2">–</span></p>
-<p><b>Tag:</b> <span id="company-tag">–</span></p>
-<p><b>Status:</b> <span id="company-recruitment">–</span></p>
-<p><b>Sprache:</b> <span id="company-language">–</span></p>
-<p><b>Land:</b> <span id="company-country">–</span></p>
+<p><b>Name:</b> <span id="company-name-2"></span></p>
+<p><b>Slogan:</b> <span id="company-slogan-2"></span></p>
+<p><b>Tag:</b> <span id="company-tag"></span></p>
+<p><b>Status:</b> <span id="company-recruitment"></span></p>
+<p><b>Sprache:</b> <span id="company-language"></span></p>
+<p><b>Land:</b> <span id="company-country"></span></p>
 </div>
 
 <div class="buttons">
@@ -148,6 +148,22 @@ Jetzt über Trucky bewerben
 <script>
 const API="https://tlv-trucky-api.florian-ernst-339.workers.dev";
 
+/* RANG PRIORITÄT */
+const rankOrder=[
+  "Inhaber / CEO",
+  "Stellvertretender Geschäftsführung",
+  "Disposition / Fuhrparkleiter / HR",
+  "Senior Fahrer",
+  "Fahrer",
+  "Trainee / Junior Fahrer",
+  "Fahrer auf Probe"
+];
+
+function rankIndex(role){
+  const i=rankOrder.findIndex(r=>role.includes(r));
+  return i===-1?999:i;
+}
+
 function animate(el,target){
   let n=0,step=target/60;
   const i=setInterval(()=>{
@@ -158,47 +174,55 @@ function animate(el,target){
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
+
 fetch(API+"/company").then(r=>r.json()).then(d=>{
-  document.getElementById("company-name").innerText=d.name;
-  document.getElementById("company-name-2").innerText=d.name;
-  document.getElementById("company-slogan").innerText=d.slogan;
-  document.getElementById("company-slogan-2").innerText=d.slogan;
-  document.getElementById("company-tag").innerText=d.tag;
-  document.getElementById("company-language").innerText=d.language;
-  document.getElementById("company-country").innerText=d.country_code;
-  document.getElementById("company-recruitment").innerText=
+  company-name.innerText=d.name;
+  company-name-2.innerText=d.name;
+  company-slogan.innerText=d.slogan;
+  company-slogan-2.innerText=d.slogan;
+  company-tag.innerText=d.tag;
+  company-language.innerText=d.language;
+  company-country.innerText=d.country_code;
+  company-recruitment.innerText=
     d.recruitment==="open"?"🟢 Bewerbungen offen":"🔴 Geschlossen";
   if(d.cover)
-    document.getElementById("hero").style.backgroundImage=
-      "url(https://cdn.truckyapp.com/"+d.cover+")";
-  animate(km,d.distance);animate(jobsCount,d.jobs);animate(drivers,d.drivers);
+    hero.style.backgroundImage="url(https://cdn.truckyapp.com/"+d.cover+")";
+  animate(km,d.distance);
+  animate(jobsCount,d.jobs);
+  animate(drivers,d.drivers);
 });
 
+/* TEAM SORTIERT */
 fetch(API+"/members").then(r=>r.json()).then(list=>{
-  const t=document.getElementById("teamList");t.innerHTML="";
-  list.forEach(m=>{
-    t.innerHTML+=`<div class="card"><b>${m.name}</b><br>${m.role}</div>`;
-  });
+  const t=teamList;t.innerHTML="";
+  list
+    .map(m=>({
+      name:m.name||m.user?.name||"Unbekannt",
+      role:m.role||m.role?.name||"Fahrer"
+    }))
+    .sort((a,b)=>rankIndex(a.role)-rankIndex(b.role))
+    .forEach(m=>{
+      t.innerHTML+=`
+        <div class="card">
+          <b>${m.name}</b><br>
+          <span class="role">${m.role}</span>
+        </div>`;
+    });
 });
 
+/* FAHRTEN */
 fetch(API+"/jobs").then(r=>r.json()).then(list=>{
-  const j=document.getElementById("jobsList");j.innerHTML="";
-  list.forEach(m=>{
-  const name = m.name || m.user?.name || "Unbekannt";
-  const role = m.role || m.role_name || m.role?.name || "Fahrer";
-
-  t.innerHTML += `
-    <div class="card">
-      <b>${name}</b><br>
-      ${role}
-    </div>
-  `;
-});
-
+  jobsList.innerHTML="";
+  list.forEach(j=>{
+    const from=j.from&&j.from!=="–"?j.from:"Unbekannt";
+    const to=j.to&&j.to!=="–"?j.to:"Unbekannt";
+    const dist=j.distance&&j.distance>0?j.distance:"–";
+    jobsList.innerHTML+=`
+      <div>${j.driver} — ${from} ➜ ${to} (${dist} km)</div>`;
+  });
 });
 });
 </script>
 
 </body>
 </html>
-
