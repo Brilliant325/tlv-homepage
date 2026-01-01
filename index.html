@@ -183,12 +183,22 @@ fetch(API+"/members").then(r=>r.json()).then(list=>{
 
 fetch(API+"/jobs").then(r=>r.json()).then(list=>{
   const j=document.getElementById("jobsList");j.innerHTML="";
-  list.forEach(x=>{
-    j.innerHTML+=`<div>${x.driver} – ${x.from} ➜ ${x.to} (${x.distance} km)</div>`;
-  });
+  list.forEach(m=>{
+  const name = m.name || m.user?.name || "Unbekannt";
+  const role = m.role || m.role_name || m.role?.name || "Fahrer";
+
+  t.innerHTML += `
+    <div class="card">
+      <b>${name}</b><br>
+      ${role}
+    </div>
+  `;
+});
+
 });
 });
 </script>
 
 </body>
 </html>
+
