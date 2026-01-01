@@ -146,10 +146,10 @@ Jetzt über Trucky bewerben
 </footer>
 
 <script>
-const API="https://tlv-trucky-api.florian-ernst-339.workers.dev";
+const API = "https://tlv-trucky-api.florian-ernst-339.workers.dev";
 
-/* RANG PRIORITÄT */
-const rankOrder=[
+/* Rang-Reihenfolge */
+const rankOrder = [
   "Inhaber / CEO",
   "Stellvertretender Geschäftsführung",
   "Disposition / Fuhrparkleiter / HR",
@@ -159,70 +159,106 @@ const rankOrder=[
   "Fahrer auf Probe"
 ];
 
-function rankIndex(role){
-  const i=rankOrder.findIndex(r=>role.includes(r));
-  return i===-1?999:i;
+function rankIndex(role) {
+  const i = rankOrder.findIndex(r => role.includes(r));
+  return i === -1 ? 999 : i;
 }
 
-function animate(el,target){
-  let n=0,step=target/60;
-  const i=setInterval(()=>{
-    n+=step;
-    if(n>=target){el.innerText=target.toLocaleString("de-DE");clearInterval(i)}
-    else el.innerText=Math.floor(n).toLocaleString("de-DE")
-  },20)
+/* Counter Animation */
+function animate(el, target) {
+  let n = 0;
+  const step = Math.max(target / 60, 1);
+  const i = setInterval(() => {
+    n += step;
+    if (n >= target) {
+      el.innerText = target.toLocaleString("de-DE");
+      clearInterval(i);
+    } else {
+      el.innerText = Math.floor(n).toLocaleString("de-DE");
+    }
+  }, 20);
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
 
-fetch(API+"/company").then(r=>r.json()).then(d=>{
-  company-name.innerText=d.name;
-  company-name-2.innerText=d.name;
-  company-slogan.innerText=d.slogan;
-  company-slogan-2.innerText=d.slogan;
-  company-tag.innerText=d.tag;
-  company-language.innerText=d.language;
-  company-country.innerText=d.country_code;
-  company-recruitment.innerText=
-    d.recruitment==="open"?"🟢 Bewerbungen offen":"🔴 Geschlossen";
-  if(d.cover)
-    hero.style.backgroundImage="url(https://cdn.truckyapp.com/"+d.cover+")";
-  animate(km,d.distance);
-  animate(jobsCount,d.jobs);
-  animate(drivers,d.drivers);
-});
+  /* ===== COMPANY ===== */
+  fetch(API + "/company")
+    .then(r => r.json())
+    .then(d => {
+      console.log("COMPANY:", d);
 
-/* TEAM SORTIERT */
-fetch(API+"/members").then(r=>r.json()).then(list=>{
-  const t=teamList;t.innerHTML="";
-  list
-    .map(m=>({
-      name:m.name||m.user?.name||"Unbekannt",
-      role:m.role||m.role?.name||"Fahrer"
-    }))
-    .sort((a,b)=>rankIndex(a.role)-rankIndex(b.role))
-    .forEach(m=>{
-      t.innerHTML+=`
-        <div class="card">
-          <b>${m.name}</b><br>
-          <span class="role">${m.role}</span>
-        </div>`;
+      document.getElementById("company-name").innerText = d.name;
+      document.getElementById("company-name-2").innerText = d.name;
+      document.getElementById("company-slogan").innerText = d.slogan;
+      document.getElementById("company-slogan-2").innerText = d.slogan;
+      document.getElementById("company-tag").innerText = d.tag;
+      document.getElementById("company-language").innerText = d.language;
+      document.getElementById("company-country").innerText = d.country_code;
+
+      document.getElementById("company-recruitment").innerText =
+        d.recruitment === "open"
+          ? "🟢 Bewerbungen offen"
+          : "🔴 Geschlossen";
+
+      if (d.cover) {
+        document.getElementById("hero").style.backgroundImage =
+          "url(https://cdn.truckyapp.com/" + d.cover + ")";
+      }
+
+      animate(document.getElementById("km"), d.distance);
+      animate(document.getElementById("jobsCount"), d.jobs);
+      animate(document.getElementById("drivers"), d.drivers);
     });
-});
 
-/* FAHRTEN */
-fetch(API+"/jobs").then(r=>r.json()).then(list=>{
-  jobsList.innerHTML="";
-  list.forEach(j=>{
-    const from=j.from&&j.from!=="–"?j.from:"Unbekannt";
-    const to=j.to&&j.to!=="–"?j.to:"Unbekannt";
-    const dist=j.distance&&j.distance>0?j.distance:"–";
-    jobsList.innerHTML+=`
-      <div>${j.driver} — ${from} ➜ ${to} (${dist} km)</div>`;
-  });
-});
+  /* ===== TEAM ===== */
+  fetch(API + "/members")
+    .then(r => r.json())
+    .then(list => {
+      console.log("TEAM:", list);
+      const team = document.getElementById("teamList");
+      team.innerHTML = "";
+
+      list
+        .map(m => ({
+          name: m.name || m.user?.name || "Unbekannt",
+          role: m.role || m.role?.name || "Fahrer"
+        }))
+        .sort((a, b) => rankIndex(a.role) - rankIndex(b.role))
+        .forEach(m => {
+          team.innerHTML += `
+            <div class="card">
+              <b>${m.name}</b><br>
+              <span class="role">${m.role}</span>
+            </div>
+          `;
+        });
+    });
+
+  /* ===== JOBS ===== */
+  fetch(API + "/jobs")
+    .then(r => r.json())
+    .then(list => {
+      console.log("JOBS:", list);
+      const jobs = document.getElementById("jobsList");
+      jobs.innerHTML = "";
+
+      list.forEach(j => {
+        const from = j.from && j.from !== "–" ? j.from : "Unbekannt";
+        const to = j.to && j.to !== "–" ? j.to : "Unbekannt";
+        const dist = j.distance && j.distance > 0 ? j.distance : "–";
+
+        jobs.innerHTML += `
+          <div>
+            ${j.driver} — ${from} ➜ ${to} (${dist} km)
+          </div>
+        `;
+      });
+    });
+
 });
 </script>
 
+
 </body>
 </html>
+
