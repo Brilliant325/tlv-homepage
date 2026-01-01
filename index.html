@@ -13,14 +13,14 @@
       color: #e5e5e5;
     }
 
-    /* HERO HEADER */
+    /* HERO */
     .hero {
       height: 85vh;
-      background: url("images/truck1.jpg") center center / cover no-repeat;
+      background: url("images/truck1.jpg") center / cover no-repeat;
       position: relative;
     }
 
-    .hero .overlay {
+    .overlay {
       background: rgba(11, 6, 20, 0.7);
       height: 100%;
       display: flex;
@@ -31,20 +31,20 @@
       padding: 20px;
     }
 
-    .hero img {
+    .overlay img {
       width: 240px;
       margin-bottom: 20px;
     }
 
-    .hero h1 {
-      font-size: 3em;
+    h1 {
       margin: 0;
+      font-size: 3em;
       color: #b388ff;
     }
 
-    .hero .slogan {
-      font-size: 1.4em;
+    .slogan {
       margin-top: 10px;
+      font-size: 1.4em;
       opacity: 0;
       animation: fadeIn 2s forwards;
     }
@@ -53,7 +53,7 @@
       to { opacity: 1; }
     }
 
-    /* NAVIGATION */
+    /* NAV */
     nav {
       display: flex;
       justify-content: center;
@@ -69,17 +69,11 @@
       color: #b388ff;
       text-decoration: none;
       font-weight: bold;
-      transition: 0.2s;
     }
 
-    nav a:hover {
-      color: #d6bcfa;
-    }
-
-    /* SECTIONS */
     section {
       padding: 60px 20px;
-      max-width: 1200px;
+      max-width: 1000px;
       margin: auto;
     }
 
@@ -89,106 +83,75 @@
       margin-bottom: 20px;
     }
 
-    p {
-      text-align: center;
-      max-width: 800px;
-      margin: auto;
-      line-height: 1.6;
-    }
-
-    /* BUTTONS */
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 25px;
+    .box {
+      background: #140a24;
+      padding: 25px;
+      border-radius: 12px;
+      margin-top: 20px;
     }
 
     .btn {
+      display: inline-block;
       background: #7c3aed;
       color: white;
       padding: 14px 26px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      transition: 0.3s;
+      margin-top: 20px;
     }
 
-    .btn:hover {
-      background: #9f7aea;
-    }
-
-    /* IFRAME */
-    iframe {
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      min-height: 650px;
-      background: #140a24;
-      margin-top: 30px;
-    }
-
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 30px;
       background: #140a24;
-      font-size: 0.9em;
       color: #aaa;
+      font-size: 0.9em;
     }
   </style>
 </head>
 
 <body>
 
-<!-- HERO HEADER -->
-<header class="hero" id="home">
+<!-- HERO -->
+<header class="hero">
   <div class="overlay">
     <img src="https://cdn.truckyapp.com/public/companies/39842/65F0gBO9Hlj7Yucicbw9.png" alt="TLV Logo">
-    <h1>The Lost Violets Logistik</h1>
-    <div class="slogan">Teuer, Langsam und Verloren</div>
+    <h1 id="company-name">The Lost Violets Logistik</h1>
+    <div class="slogan" id="company-slogan">Teuer, Langsam und Verloren</div>
   </div>
 </header>
 
-<!-- NAVIGATION -->
+<!-- NAV -->
 <nav>
   <a href="#bewerbung">Bewerbung</a>
-  <a href="#team">Team</a>
-  <a href="#fahrten">Fahrten</a>
+  <a href="#daten">Speditionsdaten</a>
   <a href="https://discord.gg/BKQZRThTAb" target="_blank">Discord</a>
 </nav>
 
 <!-- BEWERBUNG -->
 <section id="bewerbung">
   <h2>📝 Bewerbung</h2>
-  <p>
+  <div class="box" style="text-align:center;">
     Bewerbungen sind ausschließlich über TruckyApp möglich.
-    Discord-Nachrichten ersetzen keine Bewerbung.
-  </p>
-  <div class="buttons">
+    <br>
     <a class="btn" href="https://hub.truckyapp.com/vtc/the-lost-violets-logistik" target="_blank">
       Jetzt über Trucky bewerben
     </a>
   </div>
 </section>
 
-<!-- TEAM -->
-<section id="team">
-  <h2>🧑‍✈️ Unser Team</h2>
-  <p>
-    Alle Fahrer, Rollen und Positionen werden zentral über Trucky verwaltet.
-  </p>
-  <iframe src="https://hub.truckyapp.com/company/39842"></iframe>
-</section>
-
-<!-- FAHRTEN -->
-<section id="fahrten">
-  <h2>🚚 Fahrten & Statistiken</h2>
-  <p>
-    Aktuelle Fahrten, Statistiken und Aktivitäten unserer Spedition.
-  </p>
-  <iframe src="https://hub.truckyapp.com/company/39842/jobs"></iframe>
+<!-- LIVE DATEN -->
+<section id="daten">
+  <h2>📊 Live-Speditionsdaten</h2>
+  <div class="box">
+    <p><strong>Name:</strong> <span id="live-name">–</span></p>
+    <p><strong>Slogan:</strong> <span id="live-slogan">–</span></p>
+    <p><strong>Tag:</strong> <span id="live-tag">–</span></p>
+    <p><strong>Bewerbungsstatus:</strong> <span id="live-status">–</span></p>
+    <p><strong>Sprache:</strong> <span id="live-language">–</span></p>
+    <p><strong>Land:</strong> <span id="live-country">–</span></p>
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -196,6 +159,31 @@
   © 2025 The Lost Violets Logistik · ETS2 · TruckyApp  
   <br>Teuer. Langsam. Verloren. 💜
 </footer>
+
+<!-- TRUCKY API SCRIPT -->
+<script>
+fetch("https://tlv-trucky-api.florian-ernst-339.workers.dev")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("company-name").innerText = data.name;
+    document.getElementById("company-slogan").innerText = data.slogan;
+
+    document.getElementById("live-name").innerText = data.name;
+    document.getElementById("live-slogan").innerText = data.slogan;
+    document.getElementById("live-tag").innerText = data.tag;
+    document.getElementById("live-language").innerText = data.language;
+    document.getElementById("live-country").innerText = data.country_code;
+
+    document.getElementById("live-status").innerText =
+      data.recruitment === "open"
+        ? "🟢 Bewerbungen offen"
+        : "🔴 Bewerbungen geschlossen";
+  })
+  .catch(() => {
+    document.getElementById("live-status").innerText =
+      "⚠️ Daten aktuell nicht verfügbar";
+  });
+</script>
 
 </body>
 </html>
