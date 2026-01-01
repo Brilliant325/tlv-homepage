@@ -166,33 +166,51 @@ const API = "https://tlv-trucky-api.florian-ernst-339.workers.dev";
 document.addEventListener("DOMContentLoaded", () => {
   fetch(API + "/company")
     .then(res => res.json())
-    .then(data => {
-      console.log("API DATA:", data);
+    .then(d => {
+      console.log("API OK:", d);
 
-      document.getElementById("companyName").innerText = data.name;
-      document.getElementById("companySlogan").innerText = data.slogan;
+      // Textfelder
+      const map = {
+        "company-name": d.name,
+        "company-slogan": d.slogan,
+        "company-tag": d.tag,
+        "company-recruitment": d.recruitment === "open" ? "Bewerbungen offen" : "Geschlossen",
+        "company-language": d.language,
+        "company-country": d.country_code
+      };
 
-      if (data.cover) {
-        document.getElementById("hero").style.backgroundImage =
-          "url(https://cdn.truckyapp.com/" + data.cover + ")";
+      for (const id in map) {
+        const el = document.getElementById(id);
+        if (el) el.innerText = map[id] ?? "-";
       }
 
-      document.getElementById("km").innerText =
-        data.distance.toLocaleString("de-DE");
+      // Header Cover
+      if (d.cover) {
+        const hero = document.getElementById("hero");
+        if (hero) {
+          hero.style.backgroundImage =
+            "url(https://cdn.truckyapp.com/" + d.cover + ")";
+        }
+      }
 
-      document.getElementById("jobsCount").innerText =
-        data.jobs.toLocaleString("de-DE");
+      // Counter
+      if (document.getElementById("km"))
+        document.getElementById("km").innerText = d.distance.toLocaleString("de-DE");
 
-      document.getElementById("drivers").innerText =
-        data.drivers.toLocaleString("de-DE");
+      if (document.getElementById("jobsCount"))
+        document.getElementById("jobsCount").innerText = d.jobs;
+
+      if (document.getElementById("drivers"))
+        document.getElementById("drivers").innerText = d.drivers;
     })
     .catch(err => console.error("API Fehler:", err));
 });
 </script>
-<!-- TRUCKY API SCRIPT -->
+
 
 
 
 </body>
 </html>
+
 
