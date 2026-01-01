@@ -160,30 +160,39 @@
   <br>Teuer. Langsam. Verloren. 💜
 </footer>
 
-<!-- TRUCKY API SCRIPT -->
 <script>
-fetch("https://tlv-trucky-api.florian-ernst-339.workers.dev")
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("company-name").innerText = data.name;
-    document.getElementById("company-slogan").innerText = data.slogan;
+const API = "https://tlv-trucky-api.florian-ernst-339.workers.dev";
 
-    document.getElementById("live-name").innerText = data.name;
-    document.getElementById("live-slogan").innerText = data.slogan;
-    document.getElementById("live-tag").innerText = data.tag;
-    document.getElementById("live-language").innerText = data.language;
-    document.getElementById("live-country").innerText = data.country_code;
+document.addEventListener("DOMContentLoaded", () => {
+  fetch(API + "/company")
+    .then(res => res.json())
+    .then(data => {
+      console.log("API DATA:", data);
 
-    document.getElementById("live-status").innerText =
-      data.recruitment === "open"
-        ? "🟢 Bewerbungen offen"
-        : "🔴 Bewerbungen geschlossen";
-  })
-  .catch(() => {
-    document.getElementById("live-status").innerText =
-      "⚠️ Daten aktuell nicht verfügbar";
-  });
+      document.getElementById("companyName").innerText = data.name;
+      document.getElementById("companySlogan").innerText = data.slogan;
+
+      if (data.cover) {
+        document.getElementById("hero").style.backgroundImage =
+          "url(https://cdn.truckyapp.com/" + data.cover + ")";
+      }
+
+      document.getElementById("km").innerText =
+        data.distance.toLocaleString("de-DE");
+
+      document.getElementById("jobsCount").innerText =
+        data.jobs.toLocaleString("de-DE");
+
+      document.getElementById("drivers").innerText =
+        data.drivers.toLocaleString("de-DE");
+    })
+    .catch(err => console.error("API Fehler:", err));
+});
 </script>
+<!-- TRUCKY API SCRIPT -->
+
+
 
 </body>
 </html>
+
