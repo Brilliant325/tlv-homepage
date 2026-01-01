@@ -196,17 +196,37 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("jobsCount").parentElement.style.display = "none";
     });
 
-  /* ===== TEAM – ALLE MITGLIEDER MIT ECHTEM NAMEN + RANG ===== */
-  fetch(API + "/members")
-    .then(r => r.json())
-    .then(list => {
-      const team = document.getElementById("teamList");
-      team.innerHTML = "";
+  /* ===== TEAM – ALLE MITGLIEDER MIT ECHTEM NAMEN + AKTUELLEM RANG ===== */
+fetch(API + "/members")
+  .then(r => r.json())
+  .then(list => {
+    const team = document.getElementById("teamList");
+    team.innerHTML = "";
 
-      list
-        .map(m => ({
-          name: m.user?.username || "Unbekannt",
-          role: m.role?.name || "Fahrer"
+    list
+      .map(m => ({
+        name:
+          m.user?.name ||
+          m.user?.display_name ||
+          m.user?.username ||
+          m.driver_name ||
+          "Unbekannt",
+        role:
+          m.role?.name ||
+          m.role ||
+          "Fahrer"
+      }))
+      .sort((a, b) => rankIndex(a.role) - rankIndex(b.role))
+      .forEach(m => {
+        team.innerHTML += `
+          <div class="card">
+            <b>${m.name}</b><br>
+            <span class="role">${m.role}</span>
+          </div>
+        `;
+      });
+  });
+
         }))
         .sort((a, b) => rankIndex(a.role) - rankIndex(b.role))
         .forEach(m => {
@@ -225,4 +245,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
