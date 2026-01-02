@@ -3,257 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Lost Violets – Logistik</title>
+<title>TLV – The Lost Violets Logistik</title>
 
 <style>
-:root{
+:root {
   --bg:#0b0614;
-  --card:#140b24;
-  --accent:#8b5cf6;
-  --text:#ffffff;
-  --muted:#b5a7d6;
+  --card:#140b26;
+  --accent:#9b5cff;
+  --text:#e6dcff;
 }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+* { box-sizing: border-box; }
 
-body{
-  margin:0;
-  font-family:Segoe UI,Roboto,Arial,sans-serif;
-  background:radial-gradient(circle at top,#1a0f33,var(--bg));
-  color:var(--text);
-}
-
-/* FADE IN */
-.fade{
-  opacity:0;
-  transform:translateY(30px);
-  transition:all .8s ease;
-}
-.fade.show{
-  opacity:1;
-  transform:none;
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #1a0d33, var(--bg));
+  color: var(--text);
 }
 
-/* HEADER */
-header{
-  padding:90px 20px;
-  text-align:center;
-}
-header img{
-  width:200px;
-  margin-bottom:20px;
-}
-header h1{
-  font-size:3rem;
-  margin:0;
-}
-header p{
-  color:var(--muted);
-  font-size:1.2rem;
-  margin-top:10px;
-}
-header a{
-  display:inline-block;
-  margin-top:30px;
-  padding:14px 30px;
-  background:var(--accent);
-  color:#fff;
-  border-radius:14px;
-  text-decoration:none;
-  font-weight:600;
-  transition:.3s;
-}
-header a:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 30px var(--accent);
+/* ===== HEADER ===== */
+header {
+  padding: 80px 20px 60px;
+  text-align: center;
 }
 
-/* SECTIONS */
-section{
-  padding:70px 6%;
-}
-h2{
-  text-align:center;
-  margin-bottom:40px;
-  color:var(--accent);
+header h1 {
+  margin: 0;
+  font-size: 3rem;
+  color: var(--accent);
 }
 
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-.stat{
-  background:var(--card);
-  padding:30px;
-  border-radius:18px;
-  text-align:center;
-  transition:.3s;
-}
-.stat:hover{
-  transform:translateY(-6px);
-}
-.stat span{
-  font-size:2.6rem;
-  color:var(--accent);
-  font-weight:700;
+header p {
+  margin-top: 10px;
+  opacity: 0.85;
 }
 
-/* TEAM */
-.team{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-}
-.member{
-  background:var(--card);
-  padding:24px;
-  border-radius:16px;
-  text-align:center;
-  transition:.3s;
-}
-.member:hover{
-  transform:translateY(-6px);
-  box-shadow:0 0 20px #000;
-}
-.member p{
-  color:var(--muted);
+.button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #7b3cff, #b88cff);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform .2s, box-shadow .2s;
 }
 
-/* DISCORD BOX */
-.discord-box{
-  max-width:520px;
-  margin:0 auto;
-  background:var(--card);
-  border-radius:20px;
-  padding:30px;
-  text-align:center;
-}
-.discord-box a{
-  display:inline-block;
-  margin-top:20px;
-  padding:14px 30px;
-  background:#5865F2;
-  color:#fff;
-  border-radius:14px;
-  text-decoration:none;
-  font-weight:600;
-  transition:.3s;
-}
-.discord-box a:hover{
-  transform:scale(1.05);
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(155,92,255,.4);
 }
 
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:40px;
-  color:var(--muted);
+/* ===== SECTION ===== */
+section {
+  padding: 70px 20px;
+  max-width: 1300px;
+  margin: auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 50px;
+}
+
+/* ===== TEAM ===== */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap: 25px;
+}
+
+.team-card {
+  background: linear-gradient(180deg, #1a0f30, var(--card));
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(155,92,255,.25);
+}
+
+.team-card a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  transition: color .2s;
+}
+
+.team-card a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.role {
+  margin-top: 10px;
+  color: #c9b6ff;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  opacity: 0.6;
+  font-size: 0.9rem;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header class="fade">
-  <img src="https://cdn.truckyapp.com/public/companies/39842/65F0gBO9Hlj7Yucicbw9.png" alt="TLV Logo">
-  <h1>The Lost Violets – Logistik</h1>
-  <p>Teuer, Langsam und Verloren</p>
-  <a href="https://hub.truckyapp.com/vtc/the-lost-violets-logistik/apply" target="_blank">
+<header>
+  <h1>TLV – Logistik</h1>
+  <p>The Lost Violets · Teuer, Langsam und Verloren</p>
+
+  <a class="button" href="https://hub.truckyapp.com/vtc/the-lost-violets-logistik/apply" target="_blank">
     Jetzt über Trucky bewerben
   </a>
 </header>
 
-<!-- ZAHLEN -->
-<section class="fade">
-  <h2>🚚 Unsere Zahlen</h2>
-  <div class="stats">
-    <div class="stat">
-      <span>7</span>
-      <div>Fahrer</div>
-    </div>
-    <div class="stat">
-      <span>ETS2</span>
-      <div>Simulation</div>
-    </div>
-    <div class="stat">
-      <span>DE</span>
-      <div>Standort</div>
-    </div>
-  </div>
-</section>
+<section>
+  <div class="section-title">👷 Unser Team</div>
 
-<!-- TEAM -->
-<section class="fade">
-  <h2>🧑‍✈️ Unser Team</h2>
-  <div class="team">
+  <div class="team-grid">
 
-    <div class="member">
-      <h3>Brilliant</h3>
-      <p>Inhaber / CEO</p>
+    <!-- Geschäftsführung -->
+    <div class="team-card">
+      <a href="https://hub.truckyapp.com/user/239690" target="_blank">Brilliant</a>
+      <div class="role">Inhaber / CEO</div>
     </div>
 
-    <div class="member">
-      <h3>Speedhoernchen</h3>
-      <p>Stellvertretende Geschäftsführung</p>
+    <div class="team-card">
+      <a href="https://hub.truckyapp.com/user/245305" target="_blank">Speedhoernchen</a>
+      <div class="role">Stellvertretende Geschäftsführung</div>
     </div>
 
-    <div class="member">
-      <h3>Rash'kka The Dragonqueen</h3>
-      <p>Disposition / Fuhrparkleiter / HR</p>
+    <div class="team-card">
+      <a href="https://hub.truckyapp.com/user/245608" target="_blank">
+        Rash'kka The Dragonqueen
+      </a>
+      <div class="role">
+        Disposition / Fuhrparkleiter<br>HR
+      </div>
     </div>
 
-    <div class="member">
-      <h3>DrMarmeladenbrot</h3>
-      <p>Fahrer</p>
+    <!-- Fahrer -->
+    <div class="team-card">
+      <a href="https://hub.truckyapp.com/user/245436" target="_blank">
+        DrMarmeladenbrot
+      </a>
+      <div class="role">Fahrer</div>
     </div>
 
-    <div class="member">
-      <h3>Fond</h3>
-      <p>Fahrer auf Probe</p>
+    <!-- Trainees -->
+    <div class="team-card">
+      <a href="https://hub.truckyapp.com/user/244732" target="_blank">Fond</a>
+      <div class="role">Fahrer auf Probe</div>
     </div>
 
-    <div class="member">
-      <h3>H&lt;-&gt;A&lt;-&gt;C&lt;-&gt;B&lt;-</h3>
-      <p>Fahrer auf Probe</p>
+    <div class="team-card">
+      <a href="https://hub.truckyapp.com/user/246767" target="_blank">
+        H&lt;-&gt;A&lt;-&gt;C&lt;-&gt;B&lt;-
+      </a>
+      <div class="role">Fahrer auf Probe</div>
     </div>
 
-    <div class="member">
-      <h3>Hito</h3>
-      <p>Fahrer auf Probe</p>
+    <div class="team-card">
+      <a href="https://hub.truckyapp.com/user/248642" target="_blank">Hito</a>
+      <div class="role">Trainee / Junior Fahrer</div>
     </div>
 
-  </div>
-</section>
-
-<!-- DISCORD -->
-<section class="fade">
-  <h2>💬 Discord</h2>
-  <div class="discord-box">
-    <h3>TLV – Logistik Discord</h3>
-    <p style="color:var(--muted)">
-      Tritt unserem Discord bei für Konvois, Infos & Community.
-    </p>
-    <a href="https://discord.gg/BKQZRThTAb" target="_blank">
-      Jetzt Discord beitreten
-    </a>
   </div>
 </section>
 
 <footer>
-  © 2026 The Lost Violets – Logistik · ETS2
+  © 2026 · TLV – The Lost Violets Logistik · powered by Trucky
 </footer>
-
-<script>
-const items=document.querySelectorAll('.fade');
-const obs=new IntersectionObserver(e=>{
-  e.forEach(x=>x.isIntersecting&&x.target.classList.add('show'))
-});
-items.forEach(i=>obs.observe(i));
-</script>
 
 </body>
 </html>
