@@ -177,10 +177,40 @@
     .race-card{
       background:#202028;
       border-radius:24px;
-      padding:30px;
+      padding:0 0 28px;
       border:1px solid #4c1d95;
-      transition:0.3s;
+      overflow:hidden;
+      transition:transform .3s,border-color .3s,box-shadow .3s;
     }
+
+    .race-image{
+      height:190px;
+      position:relative;
+      background:#2a2034;
+      background-size:cover;
+      background-position:center;
+      isolation:isolate;
+    }
+
+    .race-image::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(12,10,18,.04) 15%,rgba(20,16,28,.28) 55%,#202028 100%);
+      z-index:-0;
+    }
+
+    .race-card-content{padding:0 30px;}
+    .race-card-content .live{margin-top:-18px;position:relative;z-index:1;}
+    .race-card h3{overflow-wrap:anywhere;}
+    .race-card .time{margin-top:24px;}
+    .race-image-fallback{
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      color:rgba(255,255,255,.18);font-family:'Orbitron',sans-serif;font-weight:900;
+      font-size:1.4rem;letter-spacing:.12em;text-align:center;padding:20px;
+    }
+
+    @media(max-width:600px){.race-image{height:160px}.race-card-content{padding:0 22px;}}
 
     .race-card:hover{
       transform:translateY(-8px);
@@ -427,13 +457,30 @@
         const track = race.track && (race.track.display_name || race.track.name || race.track.short_name) || race.circuit || 'Strecke wird nicht angegeben';
         const classes = Array.isArray(race.car_classes) ? race.car_classes.join(' / ') : '';
         const duration = Number(race.race_length) > 0 ? Number(race.race_length) + ' Min.' : '';
+        const trackKey = String(track).toLowerCase();
+        const imageByTrack = [
+          [/qatar|lusail/, 'Qatar', 'https://commons.wikimedia.org/wiki/Special:FilePath/Lusail_International_Circuit.jpg?width=1000'],
+          [/bahrain|sakhir/, 'Bahrain', 'https://commons.wikimedia.org/wiki/Special:FilePath/Bahrain_International_Circuit.jpg?width=1000'],
+          [/fuji/, 'Fuji', 'https://commons.wikimedia.org/wiki/Special:FilePath/Fuji_Speedway_Aerial_photograph_2007.jpg?width=1000'],
+          [/sebring/, 'Sebring', 'https://commons.wikimedia.org/wiki/Special:FilePath/Sebring_International_Raceway.jpg?width=1000'],
+          [/monza/, 'Monza', 'https://commons.wikimedia.org/wiki/Special:FilePath/Autodromo_Nazionale_Monza%2C_April_22%2C_2018_SkySat_%28cropped%29.jpg?width=1000'],
+          [/cota|austin|circuit of the americas/, 'COTA', 'https://commons.wikimedia.org/wiki/Special:FilePath/Circuit_of_the_Americas%2C_April_22%2C_2018_SkySat_%28cropped2%29.jpg?width=1000'],
+          [/le mans|lemans/, 'Le Mans', 'https://commons.wikimedia.org/wiki/Special:FilePath/Luftaufnahme_vom_Bugatti_Circuit_cropped.jpg?width=1000'],
+          [/barcelona|catalunya/, 'Barcelona', 'https://commons.wikimedia.org/wiki/Special:FilePath/Circuit_de_Barcelona-Catalunya%2C_April_19%2C_2018_SkySat_%28cropped%29.jpg?width=1000']
+        ];
+        const match = imageByTrack.find(([pattern]) => pattern.test(trackKey));
+        const imageUrl = match ? match[2] : 'https://commons.wikimedia.org/wiki/Special:FilePath/Autodromo_Nazionale_Monza%2C_April_22%2C_2018_SkySat_%28cropped%29.jpg?width=1000';
+        const imageLabel = match ? match[1] : track;
         return '<article class="race-card">' +
+          '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:url(&quot;' + imageUrl + '&quot;)">' +
+          '<span class="race-image-fallback">' + escapeHtml(imageLabel.toUpperCase()) + '</span></div>' +
+          '<div class="race-card-content">' +
           '<span class="live">LMU ASSISTER</span>' +
           '<h3>' + escapeHtml(name) + '</h3>' +
           '<p class="track">' + escapeHtml(track) + '</p>' +
           (classes ? '<p class="time">Klasse: ' + escapeHtml(classes) + '</p>' : '') +
           '<p class="time">' + escapeHtml(dateLabel(start)) + (duration ? ' • ' + escapeHtml(duration) : '') + '</p>' +
-          '</article>';
+          '</div></article>';
       }).join('');
 
       statusEl.textContent = 'Aktuelle Startzeiten von LMU Assister • Anzeige in deiner lokalen Zeitzone.';
