@@ -452,7 +452,8 @@
       countdownTimer = window.setInterval(tickCountdown, 1000);
     } catch (error) {
       console.error('LMU Assister Kalender konnte nicht geladen werden:', error);
-      statusEl.textContent = 'Der Live-Kalender konnte gerade nicht geladen werden. Nutze den Link unten, um die aktuellen Rennen direkt bei LMU Assister zu sehen.';
+      const detail = error && error.message ? error.message : String(error);
+      statusEl.textContent = 'Live-Kalender konnte nicht geladen werden (' + detail + '). Nutze den Link unten für LMU Assister.';
       countdownLabel.textContent = 'Live-Daten momentan nicht verfügbar';
       countdownEl.textContent = '--:--:--';
       nextRaceName.textContent = 'Es werden bewusst keine Beispieldaten angezeigt.';
