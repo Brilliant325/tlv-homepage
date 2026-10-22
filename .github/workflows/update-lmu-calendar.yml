@@ -1,6 +1,9 @@
 name: Update LMU calendar
 
 on:
+  push:
+    paths:
+      - ".github/workflows/update-lmu-calendar.yml"
   workflow_dispatch:
   schedule:
     - cron: "*/15 * * * *"
@@ -29,7 +32,7 @@ jobs:
               r'<strong[^>]*class="[^"]*local-start-time[^"]*"[^>]*data-start-at="([^"]+)"',
               re.I | re.S
           )
-          clean = lambda s: re.sub(r"\\s+", " ", re.sub(r"<[^>]+>", "", s)).strip()
+          clean = lambda s: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", s)).strip()
           now = datetime.now(timezone.utc)
           races = []
           for name, track, raw_time in pattern.findall(html):
