@@ -28,20 +28,39 @@ jobs:
               print("LMU Assister page HTTP:", response.status, "bytes:", len(html))
 
           pattern = re.compile(
-              r'<h3[^>]*>(.*?)</h3>.*?<p[^>]*>(.*?)</p>.*?'
+              r'<h3[^>]*>(.*?)</h3>(.*?)'
               r'<strong[^>]*class="[^"]*local-start-time[^"]*"[^>]*data-start-at="([^"]+)"',
               re.I | re.S
           )
-          clean = lambda s: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", s)).strip()
+          clean = lambda s: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", s)).strip()
           now = datetime.now(timezone.utc)
           races = []
-          for name, track, raw_time in pattern.findall(html):
+          for name, card_html, raw_time in pattern.findall(html):
               try:
                   start = datetime.fromisoformat(raw_time.replace("Z", "+00:00"))
               except ValueError:
                   continue
-              if start > now:
-                  races.append({"name": clean(name), "track": clean(track), "start_at": raw_time})
+              if start <= now:
+                  continue
+              text = clean(card_html)
+              track_match = re.search(r'</h3>\s*<p[^>]*>(.*?)</p>', '<h3></h3>' + card_html, re.I | re.S)
+              track = clean(track_match.group(1)) if track_match else ""
+              level_match = re.search(r'\b(Beginner|Intermediate|Advanced)\b', text, re.I)
+              sr_match = re.search(r'\b(BRONZE|SILVER|GOLD)\b', text, re.I)
+              length_match = re.search(r'\b(\d{1,3})\s*m\b', text, re.I)
+              classes = []
+              for label in ("Hypercar", "HY", "LMP2", "LMP3", "GT3"):
+                  if re.search(r'(?<![A-Za-z0-9])' + re.escape(label) + r'(?![A-Za-z0-9])', text, re.I):
+                      classes.append("Hypercar" if label == "HY" else label)
+              races.append({
+                  "name": clean(name),
+                  "track": track,
+                  "start_at": raw_time,
+                  "level": level_match.group(1).title() if level_match else "",
+                  "classes": classes,
+                  "safety_rank": sr_match.group(1).title() if sr_match else "",
+                  "race_length": int(length_match.group(1)) if length_match else None
+              })
           races.sort(key=lambda race: race["start_at"])
           # Do not publish empty/invalid results over a previously good calendar.
           if not races:
