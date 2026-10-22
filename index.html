@@ -387,29 +387,19 @@
   async function loadSchedule() {
     statusEl.textContent = 'Lade aktuelle Renntermine von LMU Assister …';
     try {
-      const bootstrapResponse = await fetch('https://lmu-assister.com/bootstrap', { cache: 'no-store' });
-      if (!bootstrapResponse.ok) throw new Error('Bootstrap nicht erreichbar (' + bootstrapResponse.status + ')');
-      const bootstrap = await bootstrapResponse.json();
-      if (!bootstrap.api_base_url) throw new Error('API-Adresse fehlt in der Antwort');
-
-      const apiBase = String(bootstrap.api_base_url).replace(/\\/+$/, '').replace(/\\/api\\/v\\d+$/, '');
-      const scheduleResponse = await fetch(apiBase + '/api/v3/schedule', { cache: 'no-store' });
-      if (!scheduleResponse.ok) throw new Error('Rennkalender nicht erreichbar (' + scheduleResponse.status + ')');
+      const scheduleResponse = await fetch('./schedule.json?ts=' + Date.now(), { cache: 'no-store' });
+      if (!scheduleResponse.ok) throw new Error('Kalenderdatei noch nicht verfügbar (' + scheduleResponse.status + ')');
       const schedule = await scheduleResponse.json();
 
       const races = [];
-      const schedules = schedule.schedules && typeof schedule.schedules === 'object' ? schedule.schedules : {};
-      Object.values(schedules).forEach((entries) => {
-        if (!Array.isArray(entries)) return;
-        entries.forEach((race) => {
-          const times = Array.isArray(race.times) ? race.times : [];
-          times.forEach((rawTime) => {
-            const start = new Date(rawTime);
-            if (!Number.isNaN(start.getTime()) && start.getTime() > Date.now()) {
-              races.push({ race, start });
-            }
+      (Array.isArray(schedule.races) ? schedule.races : []).forEach((entry) => {
+        const start = new Date(entry.start_at);
+        if (!Number.isNaN(start.getTime()) && start.getTime() > Date.now()) {
+          races.push({
+            race: { series: entry.name, type: entry.name, circuit: entry.track, car_classes: [], race_length: null },
+            start
           });
-        });
+        }
       });
 
       const unique = new Map();
