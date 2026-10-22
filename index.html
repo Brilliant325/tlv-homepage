@@ -175,32 +175,70 @@
     }
 
     .race-card{
-      background:#202028;
-      border-radius:24px;
-      padding:0 0 28px;
-      border:1px solid #4c1d95;
+      position:relative;
+      background:linear-gradient(145deg,#20172d 0%,#17171c 55%,#101014 100%);
+      border-radius:22px;
+      padding:0 0 26px;
+      border:1px solid rgba(168,85,247,.68);
       overflow:hidden;
+      isolation:isolate;
+      box-shadow:0 12px 32px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.025);
       transition:transform .3s,border-color .3s,box-shadow .3s;
     }
 
+    .race-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      opacity:.65;
+      background:
+        linear-gradient(130deg,transparent 0 68%,rgba(147,51,234,.16) 68.3% 70%,transparent 70.3%),
+        linear-gradient(310deg,transparent 0 79%,rgba(192,132,252,.1) 79.3% 80%,transparent 80.3%);
+    }
+
     .race-image{
-      height:190px;
+      height:220px;
       position:relative;
-      background:#2a2034;
+      background-color:#24152f;
       background-size:cover;
       background-position:center;
+      overflow:hidden;
       isolation:isolate;
+    }
+
+    .race-image::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      background:
+        linear-gradient(115deg,rgba(92,20,150,.48),transparent 38%),
+        linear-gradient(180deg,rgba(8,7,13,.12) 0%,rgba(8,7,13,.08) 38%,rgba(17,17,20,.76) 80%,#20172d 100%);
     }
 
     .race-image::after{
       content:"";
       position:absolute;
-      inset:0;
-      background:linear-gradient(180deg,rgba(12,10,18,.04) 15%,rgba(20,16,28,.28) 55%,#202028 100%);
-      z-index:-0;
+      right:-45px;
+      top:-45px;
+      width:155px;
+      height:290px;
+      transform:rotate(35deg);
+      border-left:2px solid rgba(216,180,254,.62);
+      background:linear-gradient(90deg,rgba(147,51,234,.2),transparent);
+      z-index:0;
+      pointer-events:none;
     }
 
-    .race-card-content{padding:0 30px;}
+    .race-image-fallback{
+      z-index:1;
+      text-shadow:0 2px 12px #09070f;
+    }
+
+    .race-card-content{padding:0 26px;position:relative;z-index:1;}
     .race-card-content .live{margin-top:-18px;position:relative;z-index:1;}
     .race-card h3{overflow-wrap:anywhere;}
     .race-card .time{margin-top:24px;}
@@ -231,9 +269,15 @@
     .race-length{padding:8px 10px;font-weight:800;}
     .race-image-fallback{
       position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-      color:rgba(255,255,255,.18);font-family:'Orbitron',sans-serif;font-weight:900;
-      font-size:1.4rem;letter-spacing:.12em;text-align:center;padding:20px;
+      color:rgba(255,255,255,.12);font-family:'Orbitron',sans-serif;font-weight:900;
+      font-size:1.4rem;letter-spacing:.12em;text-align:center;padding:20px;z-index:0;
     }
+    .track-stamp{
+      position:absolute;right:18px;top:17px;z-index:2;text-align:right;
+      color:#fff;font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:900;
+      letter-spacing:.08em;text-shadow:0 2px 12px rgba(0,0,0,.85);
+    }
+    .track-stamp small{display:block;margin-top:4px;font-family:'Rajdhani',sans-serif;font-size:.65rem;letter-spacing:.12em;color:#e9d5ff;}
 
     @media(max-width:600px){.race-image{height:160px}.race-card-content{padding:0 22px;}}
 
@@ -515,8 +559,9 @@
             '</div>'
           : (classes ? '<div class="race-tags">' + classes.split(' / ').map(label => '<span class="class-chip">' + escapeHtml(label) + '</span>').join('') + '</div>' : '');
         return '<article class="race-card">' +
-          '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:url(&quot;' + imageUrl + '&quot;)">' +
-          '<span class="race-image-fallback">' + escapeHtml(imageLabel.toUpperCase()) + '</span></div>' +
+          '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:linear-gradient(125deg,rgba(18,8,30,.16),rgba(10,10,16,.1)),url(&quot;' + imageUrl + '&quot;)">' +
+          '<span class="race-image-fallback">' + escapeHtml(imageLabel.toUpperCase()) + '</span>' +
+          '<span class="track-stamp">' + escapeHtml(imageLabel.toUpperCase()) + '<small>RACE CIRCUIT</small></span></div>' +
           '<div class="race-card-content">' +
           tagRow +
           '<h3>' + escapeHtml(name) + '</h3>' +
