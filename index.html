@@ -215,8 +215,20 @@
     .class-chip.lmp2{background:#2563eb;}
     .class-chip.lmp3{background:#9333ea;}
     .class-chip.hypercar{background:#ea580c;}
-    .race-sr,.race-length{background:#292932;color:#d4d4d8;}
-    .race-sr{border:1px solid #6b7280;}
+    .race-sr,.race-length{background:#101018;color:#d4d4d8;border:1px solid #393947;}
+    .race-sr{padding:0;overflow:hidden;gap:0;text-transform:uppercase;letter-spacing:.02em;}
+    .race-sr-label{padding:8px 10px;background:#d4d4d8;color:#17171c;font-weight:900;}
+    .race-sr-value{padding:8px 13px;font-weight:900;min-width:82px;text-align:center;}
+    .race-sr.bronze{border-color:#a96531;box-shadow:0 0 10px rgba(205,112,49,.16);}
+    .race-sr.bronze .race-sr-label{background:linear-gradient(135deg,#ffd09a,#b9682e);color:#30180b;}
+    .race-sr.bronze .race-sr-value{background:linear-gradient(135deg,#8b4c24,#3d2116);color:#ffe1c0;}
+    .race-sr.silver{border-color:#9ca3af;box-shadow:0 0 10px rgba(203,213,225,.15);}
+    .race-sr.silver .race-sr-label{background:linear-gradient(135deg,#f8fafc,#9ca3af);color:#20232a;}
+    .race-sr.silver .race-sr-value{background:linear-gradient(135deg,#aeb6c2,#555d6b);color:#fff;}
+    .race-sr.gold{border-color:#d4a017;box-shadow:0 0 12px rgba(250,204,21,.2);}
+    .race-sr.gold .race-sr-label{background:linear-gradient(135deg,#fff1a8,#eab308);color:#302000;}
+    .race-sr.gold .race-sr-value{background:linear-gradient(135deg,#dca600,#6e4c00);color:#fff8d6;}
+    .race-length{padding:8px 10px;font-weight:800;}
     .race-image-fallback{
       position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
       color:rgba(255,255,255,.18);font-family:'Orbitron',sans-serif;font-weight:900;
@@ -498,7 +510,7 @@
           ? '<div class="race-tags">' +
             (metadata.level ? '<span class="race-level">' + escapeHtml(metadata.level) + '</span>' : '') +
             classChips +
-            (metadata.sr ? '<span class="race-sr">SR ' + escapeHtml(metadata.sr) + '</span>' : '') +
+            (metadata.sr ? '<span class="race-sr ' + escapeHtml(metadata.sr.toLowerCase()) + '"><span class="race-sr-label">SR</span><span class="race-sr-value">' + escapeHtml(metadata.sr) + '</span></span>' : '') +
             (metadata.length ? '<span class="race-length">' + escapeHtml(metadata.length) + '</span>' : '') +
             '</div>'
           : (classes ? '<div class="race-tags">' + classes.split(' / ').map(label => '<span class="class-chip">' + escapeHtml(label) + '</span>').join('') + '</div>' : '');
