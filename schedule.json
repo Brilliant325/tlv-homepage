@@ -1,0 +1,51 @@
+{
+  "updated_at": "2026-10-22T19:26:28.462445+00:00",
+  "source": "https://lmu-assister.com/",
+  "races": [
+    {
+      "name": "Daily schedule",
+      "track": "Beginner, Intermediate and Advanced rotations with local start times, class chips, race length, safety rank and countdown context.",
+      "start_at": "2026-10-22T19:30:00Z"
+    },
+    {
+      "name": "Prototype Fixed",
+      "track": "Qatar",
+      "start_at": "2026-10-22T19:30:00Z"
+    },
+    {
+      "name": "LMGT3 Fixed",
+      "track": "Bahrain",
+      "start_at": "2026-10-22T19:45:00Z"
+    },
+    {
+      "name": "ELMS Sprint Trophy",
+      "track": "Fuji",
+      "start_at": "2026-10-22T19:50:00Z"
+    },
+    {
+      "name": "ELMS Super 60",
+      "track": "Sebring",
+      "start_at": "2026-10-22T19:55:00Z"
+    },
+    {
+      "name": "Logitech McLaren G Challenge Winter - Q2",
+      "track": "Monza",
+      "start_at": "2026-10-22T20:00:00Z"
+    },
+    {
+      "name": "LMGT3 Sprint Cup",
+      "track": "COTA",
+      "start_at": "2026-10-22T20:10:00Z"
+    },
+    {
+      "name": "WEC-Xperience",
+      "track": "Le Mans",
+      "start_at": "2026-10-22T20:25:00Z"
+    },
+    {
+      "name": "One Stint Sprint",
+      "track": "Barcelona",
+      "start_at": "2026-10-22T20:55:00Z"
+    }
+  ]
+}
