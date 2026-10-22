@@ -251,7 +251,7 @@
 
 <header>
 
-  <img src="images/logo.png" alt="TLV Motorsport" class="logo">
+  <img src="image.png" alt="TLV Motorsport" class="logo">
 
   <h1>TLV Motorsport</h1>
 
@@ -321,34 +321,18 @@
     <h2 class="section-title">LIVE LMU RENNKALENDER</h2>
 
     <div class="countdown-box">
-      <p>Nächstes Rennen startet in</p>
-      <h3 id="countdown">02:14:39</h3>
+      <p id="countdown-label">Nächster Rennstart laut LMU Assister</p>
+      <h3 id="countdown">--:--:--</h3>
+      <p id="next-race-name" class="time">Rennkalender wird geladen …</p>
     </div>
 
-    <div class="races">
-
-      <div class="race-card">
-        <span class="live">LIVE EVENT</span>
-        <h3>ELMS Sprint Trophy</h3>
-        <p class="track">Le Mans</p>
-        <p class="time">Heute • 20:00 Uhr</p>
-      </div>
-
-      <div class="race-card">
-        <span class="live">LIVE EVENT</span>
-        <h3>WEC-Xperience</h3>
-        <p class="track">Spa-Francorchamps</p>
-        <p class="time">Heute • 22:00 Uhr</p>
-      </div>
-
-      <div class="race-card">
-        <span class="live">LIVE EVENT</span>
-        <h3>LMGT3 Sprint Cup</h3>
-        <p class="track">Barcelona</p>
-        <p class="time">Morgen • 19:30 Uhr</p>
-      </div>
-
-    </div>
+    <p id="calendar-status" style="text-align:center;color:#a1a1aa;margin:-20px 0 30px;">
+      Lade aktuelle Renntermine von LMU Assister …
+    </p>
+    <div class="races" id="races" aria-live="polite"></div>
+    <p style="text-align:center;margin-top:35px;">
+      <a class="btn" href="https://lmu-assister.com/" target="_blank" rel="noopener noreferrer">Alle Rennen bei LMU Assister ansehen</a>
+    </p>
 
   </div>
 
@@ -365,40 +349,120 @@
 </footer>
 
 <script>
+(() => {
+  const countdownEl = document.getElementById('countdown');
+  const countdownLabel = document.getElementById('countdown-label');
+  const nextRaceName = document.getElementById('next-race-name');
+  const statusEl = document.getElementById('calendar-status');
+  const racesEl = document.getElementById('races');
+  let nextStart = null;
+  let countdownTimer = null;
 
-const countdown = document.getElementById('countdown');
+  const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[char]);
 
-let hours = 2;
-let minutes = 14;
-let seconds = 39;
+  const dateLabel = (date) => new Intl.DateTimeFormat('de-DE', {
+    weekday: 'short', day: '2-digit', month: '2-digit',
+    hour: '2-digit', minute: '2-digit'
+  }).format(date).replace(',', ' •');
 
-setInterval(() => {
+  const tickCountdown = () => {
+    if (!nextStart) return;
+    const remaining = Math.max(0, nextStart.getTime() - Date.now());
+    const totalSeconds = Math.floor(remaining / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    countdownEl.textContent = days > 0
+      ? days + 'T ' + String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0')
+      : String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    if (remaining <= 0) {
+      countdownLabel.textContent = 'Der nächste Start wird gesucht …';
+      window.setTimeout(loadSchedule, 15000);
+    }
+  };
 
-  seconds--;
+  async function loadSchedule() {
+    statusEl.textContent = 'Lade aktuelle Renntermine von LMU Assister …';
+    try {
+      const bootstrapResponse = await fetch('https://lmu-assister.com/bootstrap', { cache: 'no-store' });
+      if (!bootstrapResponse.ok) throw new Error('Bootstrap nicht erreichbar (' + bootstrapResponse.status + ')');
+      const bootstrap = await bootstrapResponse.json();
+      if (!bootstrap.api_base_url) throw new Error('API-Adresse fehlt in der Antwort');
 
-  if(seconds < 0){
-    seconds = 59;
-    minutes--;
+      const apiBase = String(bootstrap.api_base_url).replace(/\/+$/, '').replace(/\/api\/v\d+$/, '');
+      const scheduleResponse = await fetch(apiBase + '/api/v3/schedule', { cache: 'no-store' });
+      if (!scheduleResponse.ok) throw new Error('Rennkalender nicht erreichbar (' + scheduleResponse.status + ')');
+      const schedule = await scheduleResponse.json();
+
+      const races = [];
+      const schedules = schedule.schedules && typeof schedule.schedules === 'object' ? schedule.schedules : {};
+      Object.values(schedules).forEach((entries) => {
+        if (!Array.isArray(entries)) return;
+        entries.forEach((race) => {
+          const times = Array.isArray(race.times) ? race.times : [];
+          times.forEach((rawTime) => {
+            const start = new Date(rawTime);
+            if (!Number.isNaN(start.getTime()) && start.getTime() > Date.now()) {
+              races.push({ race, start });
+            }
+          });
+        });
+      });
+
+      const unique = new Map();
+      races.sort((a, b) => a.start - b.start).forEach((entry) => {
+        const key = String(entry.race.id || entry.race.series || '') + '|' + entry.start.toISOString();
+        if (!unique.has(key)) unique.set(key, entry);
+      });
+      const upcoming = Array.from(unique.values()).slice(0, 6);
+      if (!upcoming.length) {
+        nextStart = null;
+        countdownEl.textContent = '--:--:--';
+        nextRaceName.textContent = 'Derzeit keine zukünftigen Starts in den gelieferten Daten.';
+        statusEl.textContent = 'LMU Assister hat aktuell keine zukünftigen Startzeiten geliefert.';
+        racesEl.innerHTML = '';
+        return;
+      }
+
+      nextStart = upcoming[0].start;
+      countdownLabel.textContent = 'Countdown bis zum nächsten Rennstart';
+      const first = upcoming[0];
+      nextRaceName.textContent = (first.race.series || first.race.type || 'LMU-Rennen') + ' • ' + dateLabel(first.start);
+
+      racesEl.innerHTML = upcoming.map(({ race, start }) => {
+        const name = race.series || race.type || 'LMU-Rennen';
+        const track = race.track && (race.track.display_name || race.track.name || race.track.short_name) || race.circuit || 'Strecke wird nicht angegeben';
+        const classes = Array.isArray(race.car_classes) ? race.car_classes.join(' / ') : '';
+        const duration = Number(race.race_length) > 0 ? Number(race.race_length) + ' Min.' : '';
+        return '<article class="race-card">' +
+          '<span class="live">LMU ASSISTER</span>' +
+          '<h3>' + escapeHtml(name) + '</h3>' +
+          '<p class="track">' + escapeHtml(track) + '</p>' +
+          (classes ? '<p class="time">Klasse: ' + escapeHtml(classes) + '</p>' : '') +
+          '<p class="time">' + escapeHtml(dateLabel(start)) + (duration ? ' • ' + escapeHtml(duration) : '') + '</p>' +
+          '</article>';
+      }).join('');
+
+      statusEl.textContent = 'Aktuelle Startzeiten von LMU Assister • Anzeige in deiner lokalen Zeitzone.';
+      if (countdownTimer) window.clearInterval(countdownTimer);
+      tickCountdown();
+      countdownTimer = window.setInterval(tickCountdown, 1000);
+    } catch (error) {
+      console.error('LMU Assister Kalender konnte nicht geladen werden:', error);
+      statusEl.textContent = 'Der Live-Kalender konnte gerade nicht geladen werden. Nutze den Link unten, um die aktuellen Rennen direkt bei LMU Assister zu sehen.';
+      countdownLabel.textContent = 'Live-Daten momentan nicht verfügbar';
+      countdownEl.textContent = '--:--:--';
+      nextRaceName.textContent = 'Es werden bewusst keine Beispieldaten angezeigt.';
+      racesEl.innerHTML = '';
+    }
   }
 
-  if(minutes < 0){
-    minutes = 59;
-    hours--;
-  }
-
-  if(hours < 0){
-    hours = 2;
-    minutes = 14;
-    seconds = 39;
-  }
-
-  countdown.innerText =
-    String(hours).padStart(2,'0') + ':' +
-    String(minutes).padStart(2,'0') + ':' +
-    String(seconds).padStart(2,'0');
-
-},1000);
-
+  loadSchedule();
+  window.setInterval(loadSchedule, 5 * 60 * 1000);
+})();
 </script>
 
 </body>
