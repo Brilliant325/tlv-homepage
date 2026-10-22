@@ -537,6 +537,19 @@
         ];
         const match = imageByTrack.find(([pattern]) => pattern.test(trackKey));
         const imageLabel = match ? match[1] : track;
+        const imageByTrack = [
+          [/qatar|lusail/, 'Qatar', 'https://commons.wikimedia.org/wiki/Special:FilePath/WTCC_2016%2C_Qatar.jpg?width=1200'],
+          [/bahrain|sakhir/, 'Bahrain', 'https://commons.wikimedia.org/wiki/Special:FilePath/Bahrain_International_Circuit.jpg?width=1200'],
+          [/fuji/, 'Fuji', 'https://commons.wikimedia.org/wiki/Special:FilePath/Fuji_Speedway_Aerial_photograph_2007.jpg?width=1200'],
+          [/sebring/, 'Sebring', 'https://commons.wikimedia.org/wiki/Special:FilePath/Sebring_International_Raceway.jpg?width=1200'],
+          [/monza/, 'Monza', 'https://commons.wikimedia.org/wiki/Special:FilePath/Autodromo_Nazionale_Monza%2C_April_22%2C_2018_SkySat_%28cropped%29.jpg?width=1200'],
+          [/cota|austin|circuit of the americas/, 'COTA', 'https://commons.wikimedia.org/wiki/Special:FilePath/Circuit_of_the_Americas%2C_April_22%2C_2018_SkySat_%28cropped2%29.jpg?width=1200'],
+          [/le mans|lemans/, 'Le Mans', 'https://commons.wikimedia.org/wiki/Special:FilePath/Luftaufnahme_vom_Bugatti_Circuit_cropped.jpg?width=1200'],
+          [/barcelona|catalunya/, 'Barcelona', 'https://commons.wikimedia.org/wiki/Special:FilePath/Circuit_de_Barcelona-Catalunya%2C_April_19%2C_2018_SkySat_%28cropped%29.jpg?width=1200'],
+          [/portim[aã]o|algarve/, 'Portimão', 'https://commons.wikimedia.org/wiki/Special:FilePath/Aut%C3%B3dromo_Internacional_do_Algarve.jpg?width=1200']
+        ];
+        const imageMatch = imageByTrack.find(([pattern]) => pattern.test(trackKey));
+        const imageUrl = imageMatch ? imageMatch[2] : '';
         const trackTheme = 'linear-gradient(145deg,#25232d 0%,#17171e 65%,#20172b)';
         const trackOutlines = {
           Qatar: 'M12 55 L28 38 L49 42 L63 24 L82 28 L98 16 L119 24 L133 42 L121 59 L100 62 L89 79 L67 74 L52 89 L34 77 L20 81 Z',
@@ -570,7 +583,7 @@
             '</div>'
           : (classes ? '<div class="race-tags">' + classes.split(' / ').map(label => '<span class="class-chip">' + escapeHtml(label) + '</span>').join('') + '</div>' : '');
         return '<article class="race-card">' +
-          '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:' + trackTheme + ';--track-outline:' + outlineSvg + '">' +
+          '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:linear-gradient(180deg,rgba(10,10,16,.02) 0%,rgba(10,10,16,.08) 48%,rgba(10,10,16,.78) 100%),' + (imageUrl ? 'url(&quot;' + imageUrl + '&quot;)' : trackTheme) + ';--track-outline:' + outlineSvg + '">' +
           '<span class="track-stamp">' + escapeHtml(imageLabel.toUpperCase()) + '<small>RACE CIRCUIT</small></span></div>' +
           '<div class="race-card-content">' +
           tagRow +
