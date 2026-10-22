@@ -439,7 +439,7 @@
         const start = new Date(entry.start_at);
         if (!Number.isNaN(start.getTime()) && start.getTime() > Date.now()) {
           races.push({
-            race: { series: entry.name, type: entry.name, circuit: entry.track, car_classes: [], race_length: null },
+            race: { series: entry.name, type: entry.name, circuit: entry.track, car_classes: Array.isArray(entry.classes) ? entry.classes : [], race_length: entry.race_length, level: entry.level || '', safety_rank: entry.safety_rank || '' },
             start
           });
         }
@@ -484,24 +484,23 @@
         const match = imageByTrack.find(([pattern]) => pattern.test(trackKey));
         const imageUrl = match ? match[2] : 'https://commons.wikimedia.org/wiki/Special:FilePath/Autodromo_Nazionale_Monza%2C_April_22%2C_2018_SkySat_%28cropped%29.jpg?width=1000';
         const imageLabel = match ? match[1] : track;
-        const metadata = [
-          { test: /lmgt3 fixed/i, level: 'Beginner', classes: ['GT3'], sr: 'BRONZE', length: '32m' },
-          { test: /logitech mclaren/i, level: 'Beginner', classes: ['GT3'], sr: 'BRONZE', length: '30m' },
-          { test: /lmp3 fixed/i, level: 'Beginner', classes: ['LMP3'], sr: 'BRONZE', length: '32m' },
-          { test: /prototype fixed/i, level: 'Intermediate', classes: ['LMP2', 'LMP3'], sr: 'SILVER', length: '44m' },
-          { test: /elms sprint trophy/i, level: 'Intermediate', classes: ['LMP2', 'LMP3', 'GT3'], sr: 'SILVER', length: '44m' },
-          { test: /lmgt3 sprint cup/i, level: 'Intermediate', classes: ['GT3'], sr: 'SILVER', length: '44m' },
-          { test: /elms super 60/i, level: 'Advanced', classes: ['LMP2', 'LMP3', 'GT3'], sr: 'GOLD', length: '72m' },
-          { test: /one stint sprint/i, level: 'Advanced', classes: ['Hypercar', 'GT3'], sr: 'GOLD', length: '54m' },
-          { test: /wec-xperience/i, level: 'Advanced', classes: ['Hypercar', 'LMP2', 'GT3'], sr: 'GOLD', length: '74m' }
-        ].find(item => item.test.test(name));
+        const metadata = {
+          level: race.level,
+          classes: Array.isArray(race.car_classes) ? race.car_classes : [],
+          sr: race.safety_rank,
+          length: Number(race.race_length) > 0 ? Number(race.race_length) + 'm' : ''
+        };
+        const hasMetadata = metadata.level || metadata.classes.length || metadata.sr || metadata.length;
         const classChips = metadata ? metadata.classes.map(label =>
           '<span class="class-chip ' + label.toLowerCase() + '">' + escapeHtml(label) + '</span>'
         ).join('') : '';
-        const tagRow = metadata
-          ? '<div class="race-tags"><span class="race-level">' + escapeHtml(metadata.level) + '</span>' +
-            classChips + '<span class="race-sr">SR ' + escapeHtml(metadata.sr) + '</span>' +
-            '<span class="race-length">' + escapeHtml(metadata.length) + '</span></div>'
+        const tagRow = hasMetadata
+          ? '<div class="race-tags">' +
+            (metadata.level ? '<span class="race-level">' + escapeHtml(metadata.level) + '</span>' : '') +
+            classChips +
+            (metadata.sr ? '<span class="race-sr">SR ' + escapeHtml(metadata.sr) + '</span>' : '') +
+            (metadata.length ? '<span class="race-length">' + escapeHtml(metadata.length) + '</span>' : '') +
+            '</div>'
           : (classes ? '<div class="race-tags">' + classes.split(' / ').map(label => '<span class="class-chip">' + escapeHtml(label) + '</span>').join('') + '</div>' : '');
         return '<article class="race-card">' +
           '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:url(&quot;' + imageUrl + '&quot;)">' +
