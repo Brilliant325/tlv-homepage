@@ -525,19 +525,6 @@
         const duration = Number(race.race_length) > 0 ? Number(race.race_length) + ' Min.' : '';
         const trackKey = String(track).toLowerCase();
         const imageByTrack = [
-          [/qatar|lusail/, 'Qatar', 'https://lmu-assister.com/'],
-          [/bahrain|sakhir/, 'Bahrain', 'https://lmu-assister.com/'],
-          [/fuji/, 'Fuji', 'https://lmu-assister.com/'],
-          [/sebring/, 'Sebring', 'https://lmu-assister.com/'],
-          [/monza/, 'Monza', 'https://lmu-assister.com/'],
-          [/cota|austin|circuit of the americas/, 'COTA', 'https://lmu-assister.com/'],
-          [/le mans|lemans/, 'Le Mans', 'https://lmu-assister.com/'],
-          [/barcelona|catalunya/, 'Barcelona', 'https://lmu-assister.com/'],
-          [/portim[aã]o|algarve/, 'Portimão', 'https://lmu-assister.com/']
-        ];
-        const match = imageByTrack.find(([pattern]) => pattern.test(trackKey));
-        const imageLabel = match ? match[1] : track;
-        const imageByTrack = [
           [/qatar|lusail/, 'Qatar', 'https://commons.wikimedia.org/wiki/Special:FilePath/WTCC_2016%2C_Qatar.jpg?width=1200'],
           [/bahrain|sakhir/, 'Bahrain', 'https://commons.wikimedia.org/wiki/Special:FilePath/Bahrain_International_Circuit.jpg?width=1200'],
           [/fuji/, 'Fuji', 'https://commons.wikimedia.org/wiki/Special:FilePath/Fuji_Speedway_Aerial_photograph_2007.jpg?width=1200'],
