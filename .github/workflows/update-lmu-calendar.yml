@@ -1,0 +1,65 @@
+name: Update LMU calendar
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-calendar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch public LMU Assister page and extract upcoming race times
+        run: |
+          python - <<'PY'
+          import json, re, urllib.request
+          from datetime import datetime, timezone
+
+          url = "https://lmu-assister.com/"
+          req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 TLV-Motorsport-calendar/1.0"})
+          with urllib.request.urlopen(req, timeout=25) as response:
+              html = response.read().decode("utf-8", "replace")
+              print("LMU Assister page HTTP:", response.status, "bytes:", len(html))
+
+          pattern = re.compile(
+              r'<h3[^>]*>(.*?)</h3>.*?<p[^>]*>(.*?)</p>.*?'
+              r'<strong[^>]*class="[^"]*local-start-time[^"]*"[^>]*data-start-at="([^"]+)"',
+              re.I | re.S
+          )
+          clean = lambda s: re.sub(r"\\s+", " ", re.sub(r"<[^>]+>", "", s)).strip()
+          now = datetime.now(timezone.utc)
+          races = []
+          for name, track, raw_time in pattern.findall(html):
+              try:
+                  start = datetime.fromisoformat(raw_time.replace("Z", "+00:00"))
+              except ValueError:
+                  continue
+              if start > now:
+                  races.append({"name": clean(name), "track": clean(track), "start_at": raw_time})
+          races.sort(key=lambda race: race["start_at"])
+          # Do not publish empty/invalid results over a previously good calendar.
+          if not races:
+              raise SystemExit("No upcoming race entries extracted; refusing to publish empty schedule.")
+          with open("schedule.json", "w", encoding="utf-8") as f:
+              json.dump({"updated_at": now.isoformat(), "source": url, "races": races[:30]}, f, ensure_ascii=False, indent=2)
+          print("Extracted upcoming races:", len(races))
+          PY
+      - name: Commit updated calendar
+        run: |
+          git clone --depth 1 "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" repo
+          cp schedule.json repo/schedule.json
+          cd repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add schedule.json
+          if git diff --cached --quiet; then
+            echo "Calendar unchanged."
+          else
+            git commit -m "Update LMU calendar data"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
