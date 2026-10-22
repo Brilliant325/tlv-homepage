@@ -204,6 +204,19 @@
     .race-card-content .live{margin-top:-18px;position:relative;z-index:1;}
     .race-card h3{overflow-wrap:anywhere;}
     .race-card .time{margin-top:24px;}
+    .race-tags{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:0 0 14px;}
+    .race-level,.class-chip,.race-sr,.race-length{
+      display:inline-flex;align-items:center;justify-content:center;border-radius:7px;
+      padding:6px 10px;font-size:.88rem;line-height:1.1;font-weight:700;
+    }
+    .race-level{color:#d4d4d8;background:#292932;}
+    .class-chip{color:#fff;background:#7c3aed;}
+    .class-chip.gt3{background:#16a34a;}
+    .class-chip.lmp2{background:#2563eb;}
+    .class-chip.lmp3{background:#9333ea;}
+    .class-chip.hypercar{background:#ea580c;}
+    .race-sr,.race-length{background:#292932;color:#d4d4d8;}
+    .race-sr{border:1px solid #6b7280;}
     .race-image-fallback{
       position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
       color:rgba(255,255,255,.18);font-family:'Orbitron',sans-serif;font-weight:900;
@@ -471,14 +484,32 @@
         const match = imageByTrack.find(([pattern]) => pattern.test(trackKey));
         const imageUrl = match ? match[2] : 'https://commons.wikimedia.org/wiki/Special:FilePath/Autodromo_Nazionale_Monza%2C_April_22%2C_2018_SkySat_%28cropped%29.jpg?width=1000';
         const imageLabel = match ? match[1] : track;
+        const metadata = [
+          { test: /lmgt3 fixed/i, level: 'Beginner', classes: ['GT3'], sr: 'BRONZE', length: '32m' },
+          { test: /logitech mclaren/i, level: 'Beginner', classes: ['GT3'], sr: 'BRONZE', length: '30m' },
+          { test: /lmp3 fixed/i, level: 'Beginner', classes: ['LMP3'], sr: 'BRONZE', length: '32m' },
+          { test: /prototype fixed/i, level: 'Intermediate', classes: ['LMP2', 'LMP3'], sr: 'SILVER', length: '44m' },
+          { test: /elms sprint trophy/i, level: 'Intermediate', classes: ['LMP2', 'LMP3', 'GT3'], sr: 'SILVER', length: '44m' },
+          { test: /lmgt3 sprint cup/i, level: 'Intermediate', classes: ['GT3'], sr: 'SILVER', length: '44m' },
+          { test: /elms super 60/i, level: 'Advanced', classes: ['LMP2', 'LMP3', 'GT3'], sr: 'GOLD', length: '72m' },
+          { test: /one stint sprint/i, level: 'Advanced', classes: ['Hypercar', 'GT3'], sr: 'GOLD', length: '54m' },
+          { test: /wec-xperience/i, level: 'Advanced', classes: ['Hypercar', 'LMP2', 'GT3'], sr: 'GOLD', length: '74m' }
+        ].find(item => item.test.test(name));
+        const classChips = metadata ? metadata.classes.map(label =>
+          '<span class="class-chip ' + label.toLowerCase() + '">' + escapeHtml(label) + '</span>'
+        ).join('') : '';
+        const tagRow = metadata
+          ? '<div class="race-tags"><span class="race-level">' + escapeHtml(metadata.level) + '</span>' +
+            classChips + '<span class="race-sr">SR ' + escapeHtml(metadata.sr) + '</span>' +
+            '<span class="race-length">' + escapeHtml(metadata.length) + '</span></div>'
+          : (classes ? '<div class="race-tags">' + classes.split(' / ').map(label => '<span class="class-chip">' + escapeHtml(label) + '</span>').join('') + '</div>' : '');
         return '<article class="race-card">' +
           '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:url(&quot;' + imageUrl + '&quot;)">' +
           '<span class="race-image-fallback">' + escapeHtml(imageLabel.toUpperCase()) + '</span></div>' +
           '<div class="race-card-content">' +
-          '<span class="live">LMU ASSISTER</span>' +
+          tagRow +
           '<h3>' + escapeHtml(name) + '</h3>' +
           '<p class="track">' + escapeHtml(track) + '</p>' +
-          (classes ? '<p class="time">Klasse: ' + escapeHtml(classes) + '</p>' : '') +
           '<p class="time">' + escapeHtml(dateLabel(start)) + (duration ? ' • ' + escapeHtml(duration) : '') + '</p>' +
           '</div></article>';
       }).join('');
