@@ -536,6 +536,7 @@
           [/portim[aã]o|algarve/, 'Portimão', 'https://commons.wikimedia.org/wiki/Special:FilePath/Aut%C3%B3dromo_Internacional_do_Algarve.jpg?width=1200']
         ];
         const imageMatch = imageByTrack.find(([pattern]) => pattern.test(trackKey));
+        const imageLabel = imageMatch ? imageMatch[1] : track;
         const imageUrl = imageMatch ? imageMatch[2] : '';
         const trackTheme = 'linear-gradient(145deg,#25232d 0%,#17171e 65%,#20172b)';
         const trackOutlines = {
