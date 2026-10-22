@@ -193,9 +193,7 @@
       z-index:-1;
       pointer-events:none;
       opacity:.65;
-      background:
-        linear-gradient(130deg,transparent 0 68%,rgba(147,51,234,.16) 68.3% 70%,transparent 70.3%),
-        linear-gradient(310deg,transparent 0 79%,rgba(192,132,252,.1) 79.3% 80%,transparent 80.3%);
+      background:radial-gradient(ellipse at 85% 8%,rgba(124,58,237,.09),transparent 38%);
     }
 
     .race-image{
@@ -214,10 +212,26 @@
       inset:0;
       z-index:0;
       pointer-events:none;
-      background:linear-gradient(180deg,rgba(10,10,16,.03) 0%,rgba(10,10,16,.12) 55%,rgba(17,17,20,.72) 100%);
+      background:linear-gradient(180deg,rgba(10,10,16,.04) 0%,rgba(10,10,16,.08) 58%,rgba(17,17,20,.84) 100%);
     }
 
-    .race-image::after{display:none;}
+    .race-image::after{
+      content:"";
+      display:block;
+      position:absolute;
+      z-index:0;
+      width:150px;
+      height:115px;
+      right:18px;
+      top:24px;
+      opacity:.9;
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size:contain;
+      filter:drop-shadow(0 0 5px rgba(192,132,252,.55));
+      pointer-events:none;
+      background-image:var(--track-outline,none);
+    }
 
     .race-image-fallback{
       z-index:1;
@@ -254,6 +268,7 @@
     .race-sr.gold .race-sr-value{background:linear-gradient(135deg,#dca600,#6e4c00);color:#fff8d6;}
     .race-length{padding:8px 10px;font-weight:800;}
     .race-image-fallback{display:none;}
+    .track-stamp{z-index:2;}
     .track-stamp{
       position:absolute;right:18px;top:17px;z-index:2;text-align:right;
       color:#fff;font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:900;
@@ -522,7 +537,20 @@
         ];
         const match = imageByTrack.find(([pattern]) => pattern.test(trackKey));
         const imageLabel = match ? match[1] : track;
-        const trackTheme = 'linear-gradient(145deg,#202027 0%,#15151b 65%,#1b1722)';
+        const trackTheme = 'linear-gradient(145deg,#25232d 0%,#17171e 65%,#20172b)';
+        const trackOutlines = {
+          Qatar: 'M12 55 L28 38 L49 42 L63 24 L82 28 L98 16 L119 24 L133 42 L121 59 L100 62 L89 79 L67 74 L52 89 L34 77 L20 81 Z',
+          Bahrain: 'M18 26 L38 18 L51 30 L70 24 L82 40 L104 35 L124 49 L114 68 L92 64 L79 82 L57 70 L43 78 L30 58 L14 52 Z',
+          Fuji: 'M15 42 L33 29 L52 35 L63 18 L80 24 L93 40 L117 36 L132 51 L120 68 L99 62 L84 80 L65 73 L47 84 L34 64 L18 63 Z',
+          Sebring: 'M15 25 L38 24 L47 40 L69 36 L82 48 L105 44 L128 56 L119 73 L94 68 L78 83 L58 69 L39 77 L24 57 Z',
+          Monza: 'M22 20 L43 20 L48 38 L68 38 L72 57 L94 57 L101 74 L83 84 L62 74 L53 57 L35 57 L29 40 Z',
+          COTA: 'M18 23 L38 18 L50 35 L69 25 L82 44 L103 36 L127 48 L119 65 L99 61 L86 80 L64 70 L49 82 L34 63 L19 57 Z',
+          'Le Mans': 'M18 25 L41 25 L52 40 L71 33 L88 46 L109 41 L127 55 L116 72 L95 66 L78 83 L58 72 L40 77 L28 59 Z',
+          Barcelona: 'M20 22 L42 22 L52 37 L70 34 L83 49 L104 43 L125 57 L113 72 L94 66 L79 81 L59 72 L43 79 L30 59 Z',
+          'Portimão': 'M17 24 L38 18 L54 33 L73 28 L84 45 L105 40 L126 54 L117 72 L96 66 L79 84 L59 71 L42 79 L28 59 Z'
+        };
+        const outlinePath = trackOutlines[imageLabel];
+        const outlineSvg = outlinePath ? 'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 150 100%27%3E%3Cpath d=%27' + encodeURIComponent(outlinePath) + '%27 fill=%27none%27 stroke=%27%23d8b4fe%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E")' : 'none';
         const metadata = {
           level: race.level,
           classes: Array.isArray(race.car_classes) ? race.car_classes : [],
@@ -542,7 +570,7 @@
             '</div>'
           : (classes ? '<div class="race-tags">' + classes.split(' / ').map(label => '<span class="class-chip">' + escapeHtml(label) + '</span>').join('') + '</div>' : '');
         return '<article class="race-card">' +
-          '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:' + trackTheme + '">' +
+          '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:' + trackTheme + ';--track-outline:' + outlineSvg + '">' +
           '<span class="track-stamp">' + escapeHtml(imageLabel.toUpperCase()) + '<small>RACE CIRCUIT</small></span></div>' +
           '<div class="race-card-content">' +
           tagRow +
