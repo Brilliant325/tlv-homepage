@@ -214,24 +214,10 @@
       inset:0;
       z-index:0;
       pointer-events:none;
-      background:
-        linear-gradient(115deg,rgba(92,20,150,.48),transparent 38%),
-        linear-gradient(180deg,rgba(8,7,13,.12) 0%,rgba(8,7,13,.08) 38%,rgba(17,17,20,.76) 80%,#20172d 100%);
+      background:linear-gradient(180deg,rgba(10,10,16,.03) 0%,rgba(10,10,16,.12) 55%,rgba(17,17,20,.72) 100%);
     }
 
-    .race-image::after{
-      content:"";
-      position:absolute;
-      right:-45px;
-      top:-45px;
-      width:155px;
-      height:290px;
-      transform:rotate(35deg);
-      border-left:2px solid rgba(216,180,254,.62);
-      background:linear-gradient(90deg,rgba(147,51,234,.2),transparent);
-      z-index:0;
-      pointer-events:none;
-    }
+    .race-image::after{display:none;}
 
     .race-image-fallback{
       z-index:1;
@@ -267,11 +253,7 @@
     .race-sr.gold .race-sr-label{background:linear-gradient(135deg,#fff1a8,#eab308);color:#302000;}
     .race-sr.gold .race-sr-value{background:linear-gradient(135deg,#dca600,#6e4c00);color:#fff8d6;}
     .race-length{padding:8px 10px;font-weight:800;}
-    .race-image-fallback{
-      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-      color:rgba(255,255,255,.12);font-family:'Orbitron',sans-serif;font-weight:900;
-      font-size:1.4rem;letter-spacing:.12em;text-align:center;padding:20px;z-index:0;
-    }
+    .race-image-fallback{display:none;}
     .track-stamp{
       position:absolute;right:18px;top:17px;z-index:2;text-align:right;
       color:#fff;font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:900;
@@ -540,19 +522,7 @@
         ];
         const match = imageByTrack.find(([pattern]) => pattern.test(trackKey));
         const imageLabel = match ? match[1] : track;
-        const circuitThemes = {
-          Qatar: 'radial-gradient(ellipse at 70% 30%,rgba(168,85,247,.5),transparent 35%),linear-gradient(130deg,#241338,#101014 58%,#3d1b5b)',
-          Bahrain: 'radial-gradient(ellipse at 65% 35%,rgba(249,115,22,.34),transparent 38%),linear-gradient(130deg,#42251c,#111114 60%,#32174a)',
-          Fuji: 'radial-gradient(ellipse at 70% 30%,rgba(244,114,182,.35),transparent 38%),linear-gradient(130deg,#332044,#101014 60%,#4c1d95)',
-          Sebring: 'radial-gradient(ellipse at 75% 30%,rgba(251,146,60,.4),transparent 38%),linear-gradient(130deg,#4a2819,#101014 58%,#39174e)',
-          Monza: 'radial-gradient(ellipse at 70% 30%,rgba(34,197,94,.28),transparent 38%),linear-gradient(130deg,#173526,#101014 60%,#3b1a54)',
-          COTA: 'radial-gradient(ellipse at 70% 30%,rgba(239,68,68,.32),transparent 38%),linear-gradient(130deg,#3c202b,#101014 60%,#451b68)',
-          'Le Mans': 'radial-gradient(ellipse at 70% 30%,rgba(59,130,246,.32),transparent 38%),linear-gradient(130deg,#182a42,#101014 60%,#451b68)',
-          Barcelona: 'radial-gradient(ellipse at 70% 30%,rgba(250,204,21,.24),transparent 38%),linear-gradient(130deg,#38301c,#101014 60%,#451b68)',
-          'Portimão': 'radial-gradient(ellipse at 70% 30%,rgba(20,184,166,.3),transparent 38%),linear-gradient(130deg,#153a38,#101014 60%,#451b68)'
-        };
-        const imageUrl = '';
-        const trackTheme = circuitThemes[imageLabel] || 'radial-gradient(ellipse at 70% 30%,rgba(168,85,247,.4),transparent 38%),linear-gradient(130deg,#241338,#101014 60%,#3d1b5b)';
+        const trackTheme = 'linear-gradient(145deg,#202027 0%,#15151b 65%,#1b1722)';
         const metadata = {
           level: race.level,
           classes: Array.isArray(race.car_classes) ? race.car_classes : [],
@@ -573,7 +543,6 @@
           : (classes ? '<div class="race-tags">' + classes.split(' / ').map(label => '<span class="class-chip">' + escapeHtml(label) + '</span>').join('') + '</div>' : '');
         return '<article class="race-card">' +
           '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:' + trackTheme + '">' +
-          '<span class="race-image-fallback">' + escapeHtml(imageLabel.toUpperCase()) + '</span>' +
           '<span class="track-stamp">' + escapeHtml(imageLabel.toUpperCase()) + '<small>RACE CIRCUIT</small></span></div>' +
           '<div class="race-card-content">' +
           tagRow +
