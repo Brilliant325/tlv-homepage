@@ -528,18 +528,31 @@
         const duration = Number(race.race_length) > 0 ? Number(race.race_length) + ' Min.' : '';
         const trackKey = String(track).toLowerCase();
         const imageByTrack = [
-          [/qatar|lusail/, 'Qatar', 'https://commons.wikimedia.org/wiki/Special:FilePath/Lusail_International_Circuit.jpg?width=1000'],
-          [/bahrain|sakhir/, 'Bahrain', 'https://commons.wikimedia.org/wiki/Special:FilePath/Bahrain_International_Circuit.jpg?width=1000'],
-          [/fuji/, 'Fuji', 'https://commons.wikimedia.org/wiki/Special:FilePath/Fuji_Speedway_Aerial_photograph_2007.jpg?width=1000'],
-          [/sebring/, 'Sebring', 'https://commons.wikimedia.org/wiki/Special:FilePath/Sebring_International_Raceway.jpg?width=1000'],
-          [/monza/, 'Monza', 'https://commons.wikimedia.org/wiki/Special:FilePath/Autodromo_Nazionale_Monza%2C_April_22%2C_2018_SkySat_%28cropped%29.jpg?width=1000'],
-          [/cota|austin|circuit of the americas/, 'COTA', 'https://commons.wikimedia.org/wiki/Special:FilePath/Circuit_of_the_Americas%2C_April_22%2C_2018_SkySat_%28cropped2%29.jpg?width=1000'],
-          [/le mans|lemans/, 'Le Mans', 'https://commons.wikimedia.org/wiki/Special:FilePath/Luftaufnahme_vom_Bugatti_Circuit_cropped.jpg?width=1000'],
-          [/barcelona|catalunya/, 'Barcelona', 'https://commons.wikimedia.org/wiki/Special:FilePath/Circuit_de_Barcelona-Catalunya%2C_April_19%2C_2018_SkySat_%28cropped%29.jpg?width=1000']
+          [/qatar|lusail/, 'Qatar', 'https://lmu-assister.com/'],
+          [/bahrain|sakhir/, 'Bahrain', 'https://lmu-assister.com/'],
+          [/fuji/, 'Fuji', 'https://lmu-assister.com/'],
+          [/sebring/, 'Sebring', 'https://lmu-assister.com/'],
+          [/monza/, 'Monza', 'https://lmu-assister.com/'],
+          [/cota|austin|circuit of the americas/, 'COTA', 'https://lmu-assister.com/'],
+          [/le mans|lemans/, 'Le Mans', 'https://lmu-assister.com/'],
+          [/barcelona|catalunya/, 'Barcelona', 'https://lmu-assister.com/'],
+          [/portim[aã]o|algarve/, 'Portimão', 'https://lmu-assister.com/']
         ];
         const match = imageByTrack.find(([pattern]) => pattern.test(trackKey));
-        const imageUrl = match ? match[2] : 'https://commons.wikimedia.org/wiki/Special:FilePath/Autodromo_Nazionale_Monza%2C_April_22%2C_2018_SkySat_%28cropped%29.jpg?width=1000';
         const imageLabel = match ? match[1] : track;
+        const circuitThemes = {
+          Qatar: 'radial-gradient(ellipse at 70% 30%,rgba(168,85,247,.5),transparent 35%),linear-gradient(130deg,#241338,#101014 58%,#3d1b5b)',
+          Bahrain: 'radial-gradient(ellipse at 65% 35%,rgba(249,115,22,.34),transparent 38%),linear-gradient(130deg,#42251c,#111114 60%,#32174a)',
+          Fuji: 'radial-gradient(ellipse at 70% 30%,rgba(244,114,182,.35),transparent 38%),linear-gradient(130deg,#332044,#101014 60%,#4c1d95)',
+          Sebring: 'radial-gradient(ellipse at 75% 30%,rgba(251,146,60,.4),transparent 38%),linear-gradient(130deg,#4a2819,#101014 58%,#39174e)',
+          Monza: 'radial-gradient(ellipse at 70% 30%,rgba(34,197,94,.28),transparent 38%),linear-gradient(130deg,#173526,#101014 60%,#3b1a54)',
+          COTA: 'radial-gradient(ellipse at 70% 30%,rgba(239,68,68,.32),transparent 38%),linear-gradient(130deg,#3c202b,#101014 60%,#451b68)',
+          'Le Mans': 'radial-gradient(ellipse at 70% 30%,rgba(59,130,246,.32),transparent 38%),linear-gradient(130deg,#182a42,#101014 60%,#451b68)',
+          Barcelona: 'radial-gradient(ellipse at 70% 30%,rgba(250,204,21,.24),transparent 38%),linear-gradient(130deg,#38301c,#101014 60%,#451b68)',
+          'Portimão': 'radial-gradient(ellipse at 70% 30%,rgba(20,184,166,.3),transparent 38%),linear-gradient(130deg,#153a38,#101014 60%,#451b68)'
+        };
+        const imageUrl = '';
+        const trackTheme = circuitThemes[imageLabel] || 'radial-gradient(ellipse at 70% 30%,rgba(168,85,247,.4),transparent 38%),linear-gradient(130deg,#241338,#101014 60%,#3d1b5b)';
         const metadata = {
           level: race.level,
           classes: Array.isArray(race.car_classes) ? race.car_classes : [],
@@ -559,7 +572,7 @@
             '</div>'
           : (classes ? '<div class="race-tags">' + classes.split(' / ').map(label => '<span class="class-chip">' + escapeHtml(label) + '</span>').join('') + '</div>' : '');
         return '<article class="race-card">' +
-          '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:linear-gradient(125deg,rgba(18,8,30,.16),rgba(10,10,16,.1)),url(&quot;' + imageUrl + '&quot;)">' +
+          '<div class="race-image" role="img" aria-label="' + escapeHtml(imageLabel + ' Rennstrecke') + '" style="background-image:' + trackTheme + '">' +
           '<span class="race-image-fallback">' + escapeHtml(imageLabel.toUpperCase()) + '</span>' +
           '<span class="track-stamp">' + escapeHtml(imageLabel.toUpperCase()) + '<small>RACE CIRCUIT</small></span></div>' +
           '<div class="race-card-content">' +
