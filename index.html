@@ -387,14 +387,10 @@
   async function loadSchedule() {
     statusEl.textContent = 'Lade aktuelle Renntermine von LMU Assister …';
     try {
-      const bootstrapResponse = await fetch('https://lmu-assister.com/bootstrap', { cache: 'no-store' });
-      if (!bootstrapResponse.ok) throw new Error('Bootstrap nicht erreichbar (' + bootstrapResponse.status + ')');
-      const bootstrap = await bootstrapResponse.json();
-      if (!bootstrap.api_base_url) throw new Error('API-Adresse fehlt in der Antwort');
-
-      const apiBase = String(bootstrap.api_base_url).replace(/\/+$/, '').replace(/\/api\/v\d+$/, '');
-      const scheduleResponse = await fetch(apiBase + '/api/v3/schedule', { cache: 'no-store' });
-      if (!scheduleResponse.ok) throw new Error('Rennkalender nicht erreichbar (' + scheduleResponse.status + ')');
+      // Die Daten werden serverseitig regelmäßig von LMU Assister abgeholt.
+      // Das vermeidet Browser-CORS-Probleme mit der externen API.
+      const scheduleResponse = await fetch('./schedule.json?v=' + Math.floor(Date.now() / 60000), { cache: 'no-store' });
+      if (!scheduleResponse.ok) throw new Error('Kalenderdatei nicht erreichbar (' + scheduleResponse.status + ')');
       const schedule = await scheduleResponse.json();
 
       const races = [];
