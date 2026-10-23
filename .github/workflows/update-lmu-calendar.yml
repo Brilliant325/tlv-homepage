@@ -1,4 +1,5 @@
 name: Update LMU calendar
+# Keep the published race schedule fresh for the live countdown.
 
 on:
   push:
