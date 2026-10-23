@@ -551,7 +551,7 @@
           'Portimão': 'M17 24 L38 18 L54 33 L73 28 L84 45 L105 40 L126 54 L117 72 L96 66 L79 84 L59 71 L42 79 L28 59 Z'
         };
         const outlinePath = trackOutlines[imageLabel];
-        const outlineSvg = outlinePath ? 'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 150 100%27%3E%3Cpath d=%27' + encodeURIComponent(outlinePath) + '%27 fill=%27none%27 stroke=%27%23d8b4fe%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E")' : 'none';
+        const outlineSvg = outlinePath ? 'url(&quot;data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 150 100%27%3E%3Cpath d=%27' + encodeURIComponent(outlinePath) + '%27 fill=%27none%27 stroke=%27%23d8b4fe%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E&quot;)' : 'none';
         const metadata = {
           level: race.level,
           classes: Array.isArray(race.car_classes) ? race.car_classes : [],
