@@ -514,6 +514,7 @@
       }
 
       nextStart = upcoming[0].start;
+      tickCountdown();
       countdownLabel.textContent = 'Countdown bis zum nächsten Rennstart';
       const first = upcoming[0];
       nextRaceName.textContent = (first.race.series || first.race.type || 'LMU-Rennen') + ' • ' + dateLabel(first.start);
@@ -597,6 +598,7 @@
   }
 
   loadSchedule();
+  window.setInterval(tickCountdown, 1000);
   window.setInterval(loadSchedule, 5 * 60 * 1000);
 })();
 </script>
