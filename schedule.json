@@ -1,20 +1,11 @@
 {
-  "updated_at": "2026-10-29T00:53:13.749045+00:00",
+  "updated_at": "2026-10-29T06:33:42.722121+00:00",
   "source": "https://lmu-assister.com/",
   "races": [
     {
-      "name": "WEC-Xperience",
-      "track": "Barcelona",
-      "start_at": "2026-10-29T00:55:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Gold",
-      "race_length": 74
-    },
-    {
       "name": "Daily schedule",
       "track": "Beginner, Intermediate and Advanced rotations with local start times, class chips, race length, safety rank and countdown context.",
-      "start_at": "2026-10-29T01:00:00Z",
+      "start_at": "2026-10-29T06:45:00Z",
       "level": "Beginner",
       "classes": [
         "LMP2",
@@ -25,9 +16,36 @@
       "race_length": 42
     },
     {
+      "name": "ELMS Sprint Trophy",
+      "track": "Paul Ricard",
+      "start_at": "2026-10-29T06:50:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Silver",
+      "race_length": 44
+    },
+    {
+      "name": "WEC-Xperience",
+      "track": "Barcelona",
+      "start_at": "2026-10-29T06:55:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Gold",
+      "race_length": 74
+    },
+    {
+      "name": "LMGT3 Fixed",
+      "track": "Portimão",
+      "start_at": "2026-10-29T07:00:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Bronze",
+      "race_length": 32
+    },
+    {
       "name": "LMGT3 Sprint Cup",
       "track": "Silverstone",
-      "start_at": "2026-10-29T01:10:00Z",
+      "start_at": "2026-10-29T07:10:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
@@ -36,7 +54,7 @@
     {
       "name": "Logitech McLaren G Challenge Winter - Q2",
       "track": "Monza",
-      "start_at": "2026-10-29T01:15:00Z",
+      "start_at": "2026-10-29T07:15:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Bronze",
@@ -45,34 +63,16 @@
     {
       "name": "One Stint Sprint",
       "track": "LongBeach_2026",
-      "start_at": "2026-10-29T01:25:00Z",
+      "start_at": "2026-10-29T07:25:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
       "race_length": 54
     },
     {
-      "name": "LMP3 Fixed",
-      "track": "Sebring",
-      "start_at": "2026-10-29T01:30:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Bronze",
-      "race_length": 32
-    },
-    {
       "name": "Prototype Fixed",
       "track": "Interlagos",
-      "start_at": "2026-10-29T01:30:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Silver",
-      "race_length": 44
-    },
-    {
-      "name": "ELMS Sprint Trophy",
-      "track": "Paul Ricard",
-      "start_at": "2026-10-29T01:50:00Z",
+      "start_at": "2026-10-29T07:30:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
@@ -81,7 +81,7 @@
     {
       "name": "ELMS Super 60",
       "track": "Monza",
-      "start_at": "2026-10-29T01:55:00Z",
+      "start_at": "2026-10-29T07:55:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
