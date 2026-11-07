@@ -1,11 +1,20 @@
 {
-  "updated_at": "2026-11-07T07:13:50.569116+00:00",
+  "updated_at": "2026-11-07T14:00:19.977702+00:00",
   "source": "https://lmu-assister.com/",
   "races": [
     {
+      "name": "LMGT3 Sprint Cup",
+      "track": "Imola",
+      "start_at": "2026-11-07T14:10:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Silver",
+      "race_length": 44
+    },
+    {
       "name": "Daily schedule",
       "track": "Beginner, Intermediate and Advanced rotations with local start times, class chips, race length, safety rank and countdown context.",
-      "start_at": "2026-11-07T07:15:00Z",
+      "start_at": "2026-11-07T14:15:00Z",
       "level": "Beginner",
       "classes": [
         "LMP2",
@@ -16,18 +25,18 @@
       "race_length": 42
     },
     {
-      "name": "One Stint Sprint",
-      "track": "Portimão",
-      "start_at": "2026-11-07T07:25:00Z",
+      "name": "WEC-Xperience",
+      "track": "Daytona",
+      "start_at": "2026-11-07T14:25:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
-      "race_length": 54
+      "race_length": 74
     },
     {
-      "name": "LMP3 Fixed",
-      "track": "Fuji",
-      "start_at": "2026-11-07T07:30:00Z",
+      "name": "LMGT3 Fixed",
+      "track": "Monza",
+      "start_at": "2026-11-07T14:30:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Bronze",
@@ -36,56 +45,47 @@
     {
       "name": "Prototype Fixed",
       "track": "Le Mans",
-      "start_at": "2026-11-07T07:30:00Z",
+      "start_at": "2026-11-07T14:30:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
       "race_length": 44
     },
     {
-      "name": "LMGT3 Fixed",
-      "track": "Monza",
-      "start_at": "2026-11-07T07:45:00Z",
+      "name": "Logitech McLaren G Challenge Winter - Q3",
+      "track": "Le Mans",
+      "start_at": "2026-11-07T14:45:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Bronze",
-      "race_length": 32
+      "race_length": 30
     },
     {
       "name": "ELMS Sprint Trophy",
       "track": "Michelin Raceway Road Atlanta",
-      "start_at": "2026-11-07T07:50:00Z",
+      "start_at": "2026-11-07T14:50:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
       "race_length": 44
+    },
+    {
+      "name": "One Stint Sprint",
+      "track": "Portimão",
+      "start_at": "2026-11-07T14:55:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Gold",
+      "race_length": 54
     },
     {
       "name": "ELMS Super 60",
       "track": "Bahrain",
-      "start_at": "2026-11-07T07:55:00Z",
+      "start_at": "2026-11-07T15:25:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
       "race_length": 72
-    },
-    {
-      "name": "LMGT3 Sprint Cup",
-      "track": "Imola",
-      "start_at": "2026-11-07T08:10:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Silver",
-      "race_length": 44
-    },
-    {
-      "name": "WEC-Xperience",
-      "track": "Daytona",
-      "start_at": "2026-11-07T08:25:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Gold",
-      "race_length": 74
     }
   ]
 }
