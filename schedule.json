@@ -1,11 +1,20 @@
 {
-  "updated_at": "2026-11-11T01:59:18.223819+00:00",
+  "updated_at": "2026-11-11T08:51:29.828151+00:00",
   "source": "https://lmu-assister.com/",
   "races": [
     {
+      "name": "One Stint Sprint",
+      "track": "Monza",
+      "start_at": "2026-11-11T08:55:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Gold",
+      "race_length": 54
+    },
+    {
       "name": "Daily schedule",
       "track": "Beginner, Intermediate and Advanced rotations with local start times, class chips, race length, safety rank and countdown context.",
-      "start_at": "2026-11-11T02:00:00Z",
+      "start_at": "2026-11-11T09:00:00Z",
       "level": "Beginner",
       "classes": [
         "LMP2",
@@ -18,43 +27,43 @@
     {
       "name": "LMGT3 Sprint Cup",
       "track": "Paul Ricard",
-      "start_at": "2026-11-11T02:10:00Z",
+      "start_at": "2026-11-11T09:10:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
       "race_length": 44
     },
     {
-      "name": "LMP3 Fixed",
-      "track": "Monza",
-      "start_at": "2026-11-11T02:15:00Z",
+      "name": "LMGT3 Fixed",
+      "track": "Spa",
+      "start_at": "2026-11-11T09:15:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Bronze",
       "race_length": 32
     },
     {
-      "name": "WEC-Xperience",
-      "track": "Bahrain",
-      "start_at": "2026-11-11T02:25:00Z",
+      "name": "ELMS Super 60",
+      "track": "Le Mans",
+      "start_at": "2026-11-11T09:25:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
-      "race_length": 74
+      "race_length": 72
     },
     {
-      "name": "LMGT3 Fixed",
-      "track": "Spa",
-      "start_at": "2026-11-11T02:30:00Z",
+      "name": "Logitech McLaren G Challenge Winter - Q3",
+      "track": "Le Mans",
+      "start_at": "2026-11-11T09:30:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Bronze",
-      "race_length": 32
+      "race_length": 30
     },
     {
       "name": "Prototype Fixed",
       "track": "Barcelona",
-      "start_at": "2026-11-11T02:30:00Z",
+      "start_at": "2026-11-11T09:30:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
@@ -63,29 +72,20 @@
     {
       "name": "ELMS Sprint Trophy",
       "track": "Silverstone",
-      "start_at": "2026-11-11T02:50:00Z",
+      "start_at": "2026-11-11T09:50:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
       "race_length": 44
     },
     {
-      "name": "One Stint Sprint",
-      "track": "Monza",
-      "start_at": "2026-11-11T02:55:00Z",
+      "name": "WEC-Xperience",
+      "track": "Bahrain",
+      "start_at": "2026-11-11T09:55:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
-      "race_length": 54
-    },
-    {
-      "name": "ELMS Super 60",
-      "track": "Le Mans",
-      "start_at": "2026-11-11T03:25:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Gold",
-      "race_length": 72
+      "race_length": 74
     }
   ]
 }
