@@ -1,11 +1,20 @@
 {
-  "updated_at": "2026-11-12T19:11:23.183790+00:00",
+  "updated_at": "2026-11-13T00:16:58.014425+00:00",
   "source": "https://lmu-assister.com/",
   "races": [
     {
+      "name": "ELMS Super 60",
+      "track": "Le Mans",
+      "start_at": "2026-11-13T00:25:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Gold",
+      "race_length": 72
+    },
+    {
       "name": "Daily schedule",
       "track": "Beginner, Intermediate and Advanced rotations with local start times, class chips, race length, safety rank and countdown context.",
-      "start_at": "2026-11-12T19:15:00Z",
+      "start_at": "2026-11-13T00:30:00Z",
       "level": "Beginner",
       "classes": [
         "LMP2",
@@ -16,36 +25,18 @@
       "race_length": 42
     },
     {
-      "name": "One Stint Sprint",
-      "track": "Monza",
-      "start_at": "2026-11-12T19:25:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Gold",
-      "race_length": 54
-    },
-    {
-      "name": "LMP3 Fixed",
-      "track": "Monza",
-      "start_at": "2026-11-12T19:30:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Bronze",
-      "race_length": 32
-    },
-    {
       "name": "Prototype Fixed",
       "track": "Barcelona",
-      "start_at": "2026-11-12T19:30:00Z",
+      "start_at": "2026-11-13T00:30:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
       "race_length": 44
     },
     {
-      "name": "LMGT3 Fixed",
-      "track": "Spa",
-      "start_at": "2026-11-12T19:45:00Z",
+      "name": "LMP3 Fixed",
+      "track": "Monza",
+      "start_at": "2026-11-13T00:45:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Bronze",
@@ -54,25 +45,7 @@
     {
       "name": "ELMS Sprint Trophy",
       "track": "Silverstone",
-      "start_at": "2026-11-12T19:50:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Silver",
-      "race_length": 44
-    },
-    {
-      "name": "ELMS Super 60",
-      "track": "Le Mans",
-      "start_at": "2026-11-12T19:55:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Gold",
-      "race_length": 72
-    },
-    {
-      "name": "LMGT3 Sprint Cup",
-      "track": "Paul Ricard",
-      "start_at": "2026-11-12T20:10:00Z",
+      "start_at": "2026-11-13T00:50:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
@@ -81,11 +54,38 @@
     {
       "name": "WEC-Xperience",
       "track": "Bahrain",
-      "start_at": "2026-11-12T20:25:00Z",
+      "start_at": "2026-11-13T00:55:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
       "race_length": 74
+    },
+    {
+      "name": "LMGT3 Fixed",
+      "track": "Spa",
+      "start_at": "2026-11-13T01:00:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Bronze",
+      "race_length": 32
+    },
+    {
+      "name": "LMGT3 Sprint Cup",
+      "track": "Paul Ricard",
+      "start_at": "2026-11-13T01:10:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Silver",
+      "race_length": 44
+    },
+    {
+      "name": "One Stint Sprint",
+      "track": "Monza",
+      "start_at": "2026-11-13T01:25:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Gold",
+      "race_length": 54
     }
   ]
 }
