@@ -1,20 +1,29 @@
 {
-  "updated_at": "2026-11-20T09:15:17.649522+00:00",
+  "updated_at": "2026-11-20T17:49:17.300552+00:00",
   "source": "https://lmu-assister.com/",
   "races": [
     {
-      "name": "ELMS Super 60",
-      "track": "Grand Prix of Long Beach",
-      "start_at": "2026-11-20T09:25:00Z",
+      "name": "ELMS Sprint Trophy",
+      "track": "Interlagos",
+      "start_at": "2026-11-20T17:50:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Silver",
+      "race_length": 44
+    },
+    {
+      "name": "One Stint Sprint",
+      "track": "Fuji",
+      "start_at": "2026-11-20T17:55:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
-      "race_length": 72
+      "race_length": 54
     },
     {
       "name": "Daily schedule",
       "track": "Beginner, Intermediate and Advanced rotations with local start times, class chips, race length, safety rank and countdown context.",
-      "start_at": "2026-11-20T09:30:00Z",
+      "start_at": "2026-11-20T18:00:00Z",
       "level": "Beginner",
       "classes": [
         "LMP2",
@@ -25,27 +34,45 @@
       "race_length": 42
     },
     {
-      "name": "Prototype Fixed",
-      "track": "COTA",
-      "start_at": "2026-11-20T09:30:00Z",
+      "name": "LMGT3 Sprint Cup",
+      "track": "Portimão",
+      "start_at": "2026-11-20T18:10:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
       "race_length": 44
     },
     {
-      "name": "LMP3 Fixed",
-      "track": "Bahrain",
-      "start_at": "2026-11-20T09:45:00Z",
+      "name": "LMGT3 Fixed",
+      "track": "Sebring",
+      "start_at": "2026-11-20T18:15:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Bronze",
       "race_length": 32
     },
     {
-      "name": "ELMS Sprint Trophy",
-      "track": "Interlagos",
-      "start_at": "2026-11-20T09:50:00Z",
+      "name": "ELMS Super 60",
+      "track": "Grand Prix of Long Beach",
+      "start_at": "2026-11-20T18:25:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Gold",
+      "race_length": 72
+    },
+    {
+      "name": "Logitech McLaren G Challenge Winter - Q3",
+      "track": "Le Mans",
+      "start_at": "2026-11-20T18:30:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Bronze",
+      "race_length": 30
+    },
+    {
+      "name": "Prototype Fixed",
+      "track": "COTA",
+      "start_at": "2026-11-20T18:30:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
@@ -54,38 +81,11 @@
     {
       "name": "WEC-Xperience",
       "track": "Monza",
-      "start_at": "2026-11-20T09:55:00Z",
+      "start_at": "2026-11-20T18:55:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
       "race_length": 72
-    },
-    {
-      "name": "LMGT3 Fixed",
-      "track": "Sebring",
-      "start_at": "2026-11-20T10:00:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Bronze",
-      "race_length": 32
-    },
-    {
-      "name": "LMGT3 Sprint Cup",
-      "track": "Portimão",
-      "start_at": "2026-11-20T10:10:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Silver",
-      "race_length": 44
-    },
-    {
-      "name": "One Stint Sprint",
-      "track": "Fuji",
-      "start_at": "2026-11-20T10:25:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Gold",
-      "race_length": 54
     }
   ]
 }
