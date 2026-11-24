@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-24T11:38:44.433397+00:00",
+  "updated_at": "2026-11-24T21:29:46.329389+00:00",
   "source": "https://lmu-assister.com/",
   "races": [
     {
       "name": "Daily schedule",
       "track": "Beginner, Intermediate and Advanced rotations with local start times, class chips, race length, safety rank and countdown context.",
-      "start_at": "2026-11-24T11:45:00Z",
+      "start_at": "2026-11-24T21:30:00Z",
       "level": "Beginner",
       "classes": [
         "LMP2",
@@ -16,63 +16,27 @@
       "race_length": 42
     },
     {
-      "name": "ELMS Sprint Trophy",
-      "track": "Sebring",
-      "start_at": "2026-11-24T11:50:00Z",
+      "name": "Prototype Classic",
+      "track": "Laguna Seca",
+      "start_at": "2026-11-24T21:30:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
       "race_length": 44
     },
     {
-      "name": "One Stint Sprint",
-      "track": "Spa",
-      "start_at": "2026-11-24T11:55:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Gold",
-      "race_length": 54
-    },
-    {
       "name": "LMP3 Fixed",
       "track": "Spa",
-      "start_at": "2026-11-24T12:00:00Z",
+      "start_at": "2026-11-24T21:45:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Bronze",
       "race_length": 32
     },
     {
-      "name": "LMGT3 Sprint Cup",
-      "track": "Barcelona",
-      "start_at": "2026-11-24T12:10:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Silver",
-      "race_length": 44
-    },
-    {
-      "name": "LMGT3 Fixed",
-      "track": "Le Mans",
-      "start_at": "2026-11-24T12:15:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Bronze",
-      "race_length": 30
-    },
-    {
-      "name": "ELMS Super 60",
-      "track": "Daytona",
-      "start_at": "2026-11-24T12:25:00Z",
-      "level": "",
-      "classes": [],
-      "safety_rank": "Gold",
-      "race_length": 72
-    },
-    {
-      "name": "Prototype Classic",
-      "track": "Laguna Seca",
-      "start_at": "2026-11-24T12:30:00Z",
+      "name": "ELMS Sprint Trophy",
+      "track": "Sebring",
+      "start_at": "2026-11-24T21:50:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Silver",
@@ -81,7 +45,43 @@
     {
       "name": "WEC-Xperience",
       "track": "Paul Ricard",
-      "start_at": "2026-11-24T12:55:00Z",
+      "start_at": "2026-11-24T21:55:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Gold",
+      "race_length": 72
+    },
+    {
+      "name": "LMGT3 Fixed",
+      "track": "Le Mans",
+      "start_at": "2026-11-24T22:00:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Bronze",
+      "race_length": 30
+    },
+    {
+      "name": "LMGT3 Sprint Cup",
+      "track": "Barcelona",
+      "start_at": "2026-11-24T22:10:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Silver",
+      "race_length": 44
+    },
+    {
+      "name": "One Stint Sprint",
+      "track": "Spa",
+      "start_at": "2026-11-24T22:25:00Z",
+      "level": "",
+      "classes": [],
+      "safety_rank": "Gold",
+      "race_length": 54
+    },
+    {
+      "name": "ELMS Super 60",
+      "track": "Daytona",
+      "start_at": "2026-11-24T22:55:00Z",
       "level": "",
       "classes": [],
       "safety_rank": "Gold",
